@@ -31,8 +31,10 @@ body {
   padding: 0;
   font-family: 'Google Sans Code', sans-serif !important;
 }
-h1,h2{
-  font-weight: 700;
+
+h1,
+h2 {
+  font-weight: 600;
 }
 
 /* From Uiverse.io by KSAplay */
@@ -176,8 +178,9 @@ button {
   margin-top: 25px;
   /* overflow-x: auto; */
   padding-bottom: 10px;
-  min-width: 520px;
+  /* min-width: 520px; */
   flex-wrap: wrap;
+  max-width: 520px;
 }
 
 .day-card {
@@ -257,14 +260,14 @@ button {
 .card:hover,
 .day-card:hover,
 .hour-card:hover {
-  transform: translateY(-5px) scale(1.02);
+  transform: translateY(-5px) scale(1.01);
   box-shadow: rgba(0, 0, 0, 0.25) 0px 10px 20px,
     rgba(0, 0, 0, 0.1) 0px 4px 6px;
 }
 
 /* -------- Pronóstico por horas -------- */
 .hour-card {
-  
+
   position: relative;
   background: var(--card-bg);
   /* mismo fondo que las otras tarjetas */
@@ -280,7 +283,6 @@ button {
   width: 80px;
   margin-top: 10px;
   /* tamaño compacto para scroll horizontal */
-
   transition: all 0.25s ease-out;
 }
 
@@ -290,7 +292,7 @@ button {
   display: flex;
   gap: 5px;
   overflow-x: auto;
-  min-width: 520px;
+  max-width: 520px;
 
   /* Firefox */
   scrollbar-width: thin;
@@ -311,6 +313,7 @@ button {
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 3px;
 }
+
 /* Fondo decorativo con círculos */
 .hour-card::before,
 .hour-card::after {
@@ -345,7 +348,7 @@ button {
   z-index: 1;
   margin-bottom: 5px;
   font-family: 'Google Sans Code', sans-serif !important;
-  
+
 }
 
 .hour-card .hour {
