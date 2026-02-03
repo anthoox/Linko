@@ -1,0 +1,238 @@
+<div class="w-full" x-data="{ modalIsOpen: false }" x-on:close-modal-success.window="modalIsOpen = false">
+
+    <div class="flex flex-col items-center w-full">
+
+        <!-- LISTA DE CATEGORIAS -->
+        <div class="mb-8 w-full flex max-w-5xl text-center">
+            <ul class="flex justify-start gap-2 flex-wrap max-w-6xl">
+                @forelse($categories as $category)
+                <li wire:key="nav-cat-{{ $category->id }}" class="whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item">
+                    <a href="#categoria-{{ $category->name }}">{{ $category->name }}</a>
+                </li>
+                @empty
+                <li class="whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item inline-block align-middle pointer-events-none">
+                    <a class="text-gray-400" href="#">No hay categorías aún</a>
+                </li>
+                @endforelse
+            </ul>
+        </div>
+
+        <!-- APPS -->
+        <div class="flex flex-col gap-7 mb-8 w-full max-w-5xl text-center">
+
+            <!-- FAVORITOS -->
+            <div class="flex justify-start h-full flex-1 flex-col gap-4 max-w-6xl">
+
+                @if ($favorites->count() > 0)
+                <div class="flex flex-col ds gap-2">
+                    <div class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="featured__logo-img" viewBox="0 0 24 24">
+                            <path fill="#eab308" d="M22 10.1c.1-.5-.3-1.1-.8-1.1l-5.7-.8L12.9 3c-.1-.2-.2-.3-.4-.4c-.5-.3-1.1-.1-1.4.4L8.6 8.2L2.9 9q-.45 0-.6.3c-.4.4-.4 1 0 1.4l4.1 4l-1 5.7c0 .2 0 .4.1.6c.3.5.9.7 1.4.4l5.1-2.7l5.1 2.7c.1.1.3.1.5.1h.2c.5-.1.9-.6.8-1.2l-1-5.7l4.1-4c.2-.1.3-.3.3-.5" />
+                        </svg>
+                        <h3>Favoritos</h3>
+                    </div>
+                </div>
+                <div class=" flex gap-2 flex-wrap">
+
+                    @forelse($favorites as $fav)
+
+                    <div wire:key="fav-item-{{ $fav->id }}" class="featured__item featured__item--first">
+                        <div class="featured__icon">
+                            <img class="featured__icon-img featured__icon-img--first" src="{{ $fav->image_path ? asset('storage/' . $fav->image_path) : asset('assets/img/app.svg') }}" alt="{{ $fav->name }}">
+                        </div>
+                        <div class="featured__description">
+                            <a href="{{ $fav->url }}" target="_blank">
+                                <h3 class="featured__subtitle featured__subtitle--first">{{ $fav->name }}</h3>
+                            </a>
+                        </div>
+                        <a href="{{ $fav->url }}" target="_blank"><i class="featured__arrow las la-angle-right"></i></a>
+                    </div>
+
+                    @empty
+                    <div class="flex justify-start gap-2 flex-wrap">
+                        <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none">
+                            <a class="text-gray-400" href="#">No hay favoritos aún</a>
+                        </div>
+                    </div>
+                    @endforelse
+
+                </div>
+                @else
+                <div class="flex justify-start gap-2 flex-wrap duration-300 transition-transform ">
+                    <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none">
+                        <a class="text-gray-400" href="#">No hay favoritoss aún</a>
+                    </div>
+                </div>
+                @endif
+
+            </div>
+
+            <!-- RESTO DE APPS -->
+            @forelse($categories as $category)
+            <div wire:key="cat-section-{{ $category->id }}" class="flex justify-start h-full w-full flex-1 flex-col gap-4 rounded-xl max-w-6xl">
+                <div class="flex items-center gap-2">
+                    @if($category->icon)
+                    <img
+                        src="{{ asset('storage/' . $category->icon) }}"
+                        alt="Icono {{ $category->name }}"
+                        class="size-8 object-cover rounded-md" />
+                    @else
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-7" viewBox="0 0 24 24">
+                        <g fill="none">
+                            <path d="M3 3h7v7H3zm11 11h7v7h-7zM3 14h7v7H3zm18.5-7.5a4 4 0 1 1-8 0a4 4 0 0 1 8 0" />
+                            <path stroke="#666666" stroke-width="2" d="M3 3h7v7H3zm11 11h7v7h-7zM3 14h7v7H3zm18.5-7.5a4 4 0 1 1-8 0a4 4 0 0 1 8 0Z" />
+                        </g>
+                    </svg>
+                    @endif
+                    <h3 id="categoria-{{ $category->name }}">{{ $category->name }}</h3>
+                </div>
+                <div class="flex gap-2 flex-wrap">
+                    @forelse($category->apps as $app)
+                    <div wire:key="app-{{ $app->id }}" class="featured__item">
+                        <div class="flex items-center gap-2">
+                            <div class="featured__icon">
+                                <img class="featured__icon-img" src="{{ $app->image_path ? asset('storage/' . $app->image_path) : asset('assets/img/app.svg') }}" alt="{{ $app->name }}">
+                            </div>
+
+                            <div class="featured__description">
+                                <a href="{{ $app->url }}" target="_blank">
+                                    <h3 class="featured__subtitle">{{ $app->name }}</h3>
+                                </a>
+                            </div>
+                            <div>
+                                <button
+                                    wire:click="toggleFavorite({{ $app->id }})"
+                                    wire:loading.attr="disabled"
+                                    class="absolute top-1 right-1 z-10 p-1 shadow-sm transition-transform active:scale-95"
+                                    title="Marcar como favorito">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        fill="currentColor"
+                                        class="size-4 transition-colors duration-150 {{ $app->is_favorite ? 'text-[#a371f7]' : 'text-gray-300 dark:text-gray-600' }}">
+                                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+
+                                <button
+                                    wire:click="editApp({{ $app->id }})" x-on:click="modalIsOpen = true"
+                                    wire:loading.attr="disabled"
+                                    class="absolute bottom-1 right-1 z-10 p-1 shadow-sm transition-transform active:scale-95"
+                                    title="Editar App">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-4">
+                                        <path fill="none" stroke="#4a5565" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14 6l2.293-2.293a1 1 0 0 1 1.414 0l2.586 2.586a1 1 0 0 1 0 1.414L18 10m-4-4l-9.707 9.707a1 1 0 0 0-.293.707V19a1 1 0 0 0 1 1h2.586a1 1 0 0 0 .707-.293L18 10m-4-4l4 4" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    @empty
+                    <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none">
+                        <a class="text-gray-400" href="#">Categoría vacía</a>
+                    </div>
+                    @endforelse
+                </div>
+            </div>
+            @empty
+            <div class="flex justify-start gap-2 flex-wrap">
+                <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none">
+                    <a class="text-gray-400" href="#">No hay aplicaciones aún</a>
+                </div>
+            </div>
+            @endforelse
+
+        </div>
+
+        <!-- MODAL AÑADIR APP -->
+        <div class="fixed bottom-20 right-80 z-50">
+            <div x-data="{ modalIsOpen: false }" x-on:close-modal-success.window="modalIsOpen = false" x-on:open-modal.window="modalIsOpen = true">
+                <button x-on:click="modalIsOpen = true" type="button" class="whitespace-nowrap border rounded-full border-primary dark:border-primary-dark bg-primary px-4 py-4 text-center text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0 dark:bg-primary-dark dark:text-on-primary-dark dark:focus-visible:outline-primary-dark">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-6 fill-on-primary dark:fill-on-primary-dark" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+
+                <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen" x-on:keydown.esc.window="modalIsOpen = false" x-on:click.self="modalIsOpen = false" class="fixed inset-0 z-30 flex items-end justify-center bg-black/20 p-4 pb-8 backdrop-blur-xs sm:items-center lg:p-8" role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle">
+
+                    <form wire:submit.prevent="saveApp" x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="scale-0" x-transition:enter-end="scale-100" class="flex max-w-lg flex-col gap-4 overflow-hidden rounded-radius border border-outline bg-surface text-on-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark">
+
+                        <div class="flex items-center justify-between border-b border-outline bg-surface-alt/60 p-4 dark:border-outline-dark dark:bg-surface-dark/20">
+                            <h3 id="defaultModalTitle" class="font-semibold tracking-wide text-on-surface-strong dark:text-on-surface-dark-strong">{{ $editingAppId ? 'Editar Aplicación' : 'Nueva Aplicación' }}</h3>
+                            <button type="button" x-on:click="modalIsOpen = false" aria-label="close modal">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="1.4" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="px-4 py-8">
+                            <div class="flex w-full max-w-xs flex-col gap-1 text-on-surface dark:text-on-surface-dark">
+                                <label for="name" class="w-fit pl-0.5 text-sm">Nombre</label>
+                                <input id="name" wire:model="name" type="text" class="w-full rounded-radius border border-outline bg-surface-alt px-2 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-75 dark:border-outline-dark dark:bg-surface-dark-alt/50 dark:focus-visible:outline-primary-dark" placeholder="Nombre de la Aplicación" />
+                                @error('name') <span class="text-xs text-start text-red-500 ml-1">{{ $message }}</span> @enderror
+                            </div>
+
+                            <div class="flex w-full max-w-xs flex-col gap-1 text-on-surface dark:text-on-surface-dark mt-4">
+                                <label for="url" class="w-fit pl-0.5 text-sm">URL</label>
+                                <input id="url" wire:model="url" type="text" class="w-full rounded-radius border border-outline bg-surface-alt px-2 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-75 dark:border-outline-dark dark:bg-surface-dark-alt/50 dark:focus-visible:outline-primary-dark" placeholder="Añade la URL" />
+                                @error('url') <span class="text-xs text-start text-red-500 ml-1">{{ $message }}</span> @enderror
+                            </div>
+
+                            <div class="relative flex w-full max-w-xs flex-col gap-1 text-on-surface dark:text-on-surface-dark mt-4">
+                                <label for="category_id" class="w-fit pl-0.5 text-sm">Categoría</label>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="absolute pointer-events-none right-4 top-8 size-5">
+                                    <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                                </svg>
+                                <select id="category_id" wire:model="category_id" class="w-full appearance-none rounded-radius border border-outline bg-surface-alt px-2 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:border-outline-dark dark:bg-surface-dark-alt/50 dark:focus-visible:outline-primary-dark">
+                                    <option value="">Sin categoría</option>
+                                    @foreach($categories as $cat)
+                                    @if($cat->name !== 'Sin categoría')
+                                    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                    @endif
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="relative flex w-full max-w-sm flex-col gap-1 mt-4">
+                                <label class="w-fit pl-0.5 text-sm text-on-surface dark:text-on-surface-dark" for="image">Imagen</label>
+
+                                <input id="image" type="file" wire:model.live="image" class="w-full overflow-clip rounded-radius border border-outline bg-surface-alt/50 text-sm text-on-surface file:mr-4 file:border-none file:bg-surface-alt file:px-2 file:py-2 file:font-medium file:text-on-surface-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-75 dark:border-outline-dark dark:bg-surface-dark-alt/50 dark:text-on-surface-dark dark:file:bg-surface-dark-alt dark:file:text-on-surface-dark-strong dark:focus-visible:outline-primary-dark" accept="image/*" />
+
+                                <div wire:loading wire:target="image" class="text-xs text-blue-500 mt-1">Procesando imagen...</div>
+
+                                @if ($image && !$errors->has('image'))
+                                <div class="mt-2 text-xs text-green-600 flex items-center gap-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Listo: {{ $image->getClientOriginalName() }}
+                                </div>
+                                @endif
+                                @error('image') <span class="text-xs text-start text-red-500 mt-1 font-medium">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col-reverse justify-between gap-2 border-t border-outline bg-surface-alt/60 p-4 dark:border-outline-dark dark:bg-surface-dark/20 sm:flex-row sm:items-center md:justify-end">
+                            @if($editingAppId)
+                            <button
+                                type="button"
+                                wire:click="deleteApp"
+                                wire:confirm="¿Estás seguro de que quieres eliminar esta aplicación?"
+                                class="whitespace-nowrap rounded-radius bg-red-500/10 px-4 py-2 text-center text-sm font-medium text-red-600 transition hover:bg-red-500 hover:text-white">
+                                Eliminar
+                            </button>
+                            @endif
+                            <button x-on:click="modalIsOpen = false" type="button" class="whitespace-nowrap rounded-radius px-4 py-2 text-center text-sm font-medium tracking-wide text-on-surface transition hover:opacity-75 dark:text-on-surface-dark">Cancelar</button>
+                            <button type="submit" wire:loading.attr="disabled" wire:target="saveApp, image" class="whitespace-nowrap rounded-radius border border-primary bg-primary px-4 py-2 text-center text-sm font-medium text-on-primary transition hover:opacity-75 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-primary-dark">
+                                <span wire:loading.remove wire:target="saveApp">{{ $editingAppId ? 'Actualizar' : 'Guardar' }}</span>
+                                <span wire:loading wire:target="saveApp">Guardando...</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

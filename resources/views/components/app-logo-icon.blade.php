@@ -1,0 +1,1 @@
+<img src="{{ asset('assets/img/logo-dashy.png') }}" alt="Logo Linko" class="size-8" {{ $attributes }}>

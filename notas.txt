@@ -1,0 +1,30 @@
+enlaces - 
+que la categoria sea unica-
+editar/elimimnar apps
+  añadir  icono -
+  modales -
+  metodo -
+  funcionamiento -
+editar/eliminar categorias -
+  modal para editar y eliminar - 
+  metodos y funcionamoiento -
+  corregir formulario diseño -
+  añadir icono  -
+confimrar donde se guardan las imagenes y si se separan por usuario?si. Se crea directorio para cada usuario -
+
+
+mensajes en español, añadir traducciones. -
+idioma  web -
+quitar buscar -
+logo web -
+tamaños fuentes y colores de textos -
+footer con enlaces y posición. Debe ir al final del todo.
+Diseño en movil y tablet
+Diseño portada
+Diseño login
+
+Seguridad en url
+tokkes formularios
+No mostrar mensajes de error.
+Como subir
+subir
