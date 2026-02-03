@@ -145,7 +145,7 @@
         </div>
 
         <!-- MODAL AÑADIR APP -->
-        <div class="fixed bottom-20 right-80 z-50">
+        <div class="fixed bottom-40 right-80 z-50">
             <div x-data="{ modalIsOpen: false }" x-on:close-modal-success.window="modalIsOpen = false" x-on:open-modal.window="modalIsOpen = true">
                 <button x-on:click="modalIsOpen = true" type="button" class="whitespace-nowrap border rounded-full border-primary dark:border-primary-dark bg-primary px-4 py-4 text-center text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0 dark:bg-primary-dark dark:text-on-primary-dark dark:focus-visible:outline-primary-dark">
                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-6 fill-on-primary dark:fill-on-primary-dark" fill="currentColor">
