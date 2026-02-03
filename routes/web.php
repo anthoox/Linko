@@ -12,13 +12,16 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
+
+Route::get('categories', Index::class)
+    ->middleware(['auth'])
+    ->name('category.index');
+
+
+Route::get('/home', DashboardIndex::class)
+    ->middleware(['auth'])
     ->name('dashboard');
 
-Route::get('category', Index::class)->name('category.index');
-
-
-Route::get('/dashboard', DashboardIndex::class)->middleware(['auth'])->name('dashboard');
+Route::redirect('/dashboard', '/home');
 
 require __DIR__.'/settings.php';

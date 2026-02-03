@@ -6,7 +6,7 @@
         <div class="mb-8 w-full flex max-w-5xl text-center">
             <ul class="flex justify-start gap-2 flex-wrap max-w-6xl">
                 @forelse($categories as $category)
-                <li wire:key="nav-cat-{{ $category->id }}" class="whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item">
+                <li wire:key="nav-cat-{{ $category->id }}" class="whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item hover:text-[#a371f7] transition-colors">
                     <a href="#categoria-{{ $category->name }}">{{ $category->name }}</a>
                 </li>
                 @empty
@@ -42,7 +42,7 @@
                         </div>
                         <div class="featured__description">
                             <a href="{{ $fav->url }}" target="_blank">
-                                <h3 class="featured__subtitle featured__subtitle--first">{{ $fav->name }}</h3>
+                                <h3 class="featured__subtitle featured__subtitle--first hover:text-[#a371f7] transition-colors">{{ $fav->name }}</h3>
                             </a>
                         </div>
                         <a href="{{ $fav->url }}" target="_blank"><i class="featured__arrow las la-angle-right"></i></a>
@@ -96,7 +96,7 @@
 
                             <div class="featured__description">
                                 <a href="{{ $app->url }}" target="_blank">
-                                    <h3 class="featured__subtitle">{{ $app->name }}</h3>
+                                    <h3 class="featured__subtitle hover:text-[#a371f7] transition-colors">{{ $app->name }}</h3>
                                 </a>
                             </div>
                             <div>
