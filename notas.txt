@@ -19,7 +19,7 @@ quitar buscar -
 tamaños fuentes y colores de textos -
 footer con enlaces y posición. Debe ir al final del todo -
 Renombre de url que sea igual -
-logo web
+logo web -
 Diseño en movil y tablet
 Diseño portada
 Diseño login
