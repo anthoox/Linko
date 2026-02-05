@@ -20,9 +20,14 @@ tamaños fuentes y colores de textos -
 footer con enlaces y posición. Debe ir al final del todo -
 Renombre de url que sea igual -
 logo web -
+user -
+
+footer y enlaces
 Diseño en movil y tablet
-Diseño portada
-Diseño login
+  inicio
+  categorias
+Diseño portada y españolizar
+Diseño login y españolizar
 
 redirecciones url par que envie a una web 404.
 
