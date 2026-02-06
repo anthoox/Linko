@@ -6,7 +6,10 @@
         <div class="mb-8 w-full flex max-w-5xl text-center">
             <ul class="flex justify-start gap-2 flex-wrap max-w-6xl">
                 @forelse($categories as $category)
-                <li wire:key="nav-cat-{{ $category->id }}" class="whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item hover:text-[#a371f7] transition-colors">
+                <li wire:key="nav-cat-{{ $category->id }}" class="whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center transition-all duration-300
+           border-2 bg-white border-gray-200 
+           dark:bg-dub-surface dark:border-dub 
+           dark:hover:text-linko-purple hover:border-dub-border transition-colors">
                     <a href="#categoria-{{ $category->name }}">{{ $category->name }}</a>
                 </li>
                 @empty
@@ -36,13 +39,16 @@
 
                     @forelse($favorites as $fav)
 
-                    <div wire:key="fav-item-{{ $fav->id }}" class="featured__item featured__item--first">
-                        <div class="featured__icon">
+                    <div wire:key="fav-item-{{ $fav->id }}" class="featured__item featured__item--first 
+            bg-white border-2 border-gray-100 hover:border-linko-purple 
+            dark:bg-dub-surface dark:border-dub-border dark:hover:border-linko-purple 
+            transition-colors duration-300">
+                        <div class="featured__icon bg-white dark:bg-dub-border  dark:border-dub-border border-2 border-gray-100">
                             <img class="featured__icon-img featured__icon-img--first" src="{{ $fav->image_path ? asset('storage/' . $fav->image_path) : asset('assets/img/app.svg') }}" alt="{{ $fav->name }}">
                         </div>
                         <div class="featured__description">
                             <a href="{{ $fav->url }}" target="_blank">
-                                <h3 class="featured__subtitle featured__subtitle--first hover:text-[#a371f7] transition-colors">{{ $fav->name }}</h3>
+                                <h3 class="featured__subtitle featured__subtitle--first dark:hover:text-linko-purple transition-colors duration-300">{{ $fav->name }}</h3>
                             </a>
                         </div>
                         <a href="{{ $fav->url }}" target="_blank"><i class="featured__arrow las la-angle-right"></i></a>
@@ -88,27 +94,29 @@
                 </div>
                 <div class="flex gap-2 flex-wrap">
                     @forelse($category->apps as $app)
-                    <div wire:key="app-{{ $app->id }}" class="featured__item">
+                    <div wire:key="app-{{ $app->id }}" class="featured__item bg-white border-2 border-gray-100 hover:border-linko-purple 
+            dark:bg-dub-surface dark:border-dub-border dark:hover:border-linko-purple 
+            transition-colors duration-300">
                         <div class="flex items-center gap-2">
                             <div class="featured__icon">
-                                <img class="featured__icon-img" src="{{ $app->image_path ? asset('storage/' . $app->image_path) : asset('assets/img/app.svg') }}" alt="{{ $app->name }}">
+                                <img class="featured__icon-img bg-white dark:bg-dub-border rounded-md border-2 dark:border-dub-border " src="{{ $app->image_path ? asset('storage/' . $app->image_path) : asset('assets/img/app.svg') }}" alt="{{ $app->name }}">
                             </div>
 
                             <div class="featured__description">
                                 <a href="{{ $app->url }}" target="_blank">
-                                    <h3 class="featured__subtitle hover:text-[#a371f7] transition-colors">{{ $app->name }}</h3>
+                                    <h3 class="featured__subtitle dark:hover:text-linko-purple transition-colors">{{ $app->name }}</h3>
                                 </a>
                             </div>
                             <div>
                                 <button
                                     wire:click="toggleFavorite({{ $app->id }})"
                                     wire:loading.attr="disabled"
-                                    class="absolute top-1 right-1 z-10 p-1 shadow-sm transition-transform active:scale-95"
+                                    class="absolute top-1 right-1 z-10 p-1 transition-transform active:scale-95"
                                     title="Marcar como favorito">
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24"
                                         fill="currentColor"
-                                        class="size-4 transition-colors duration-150 {{ $app->is_favorite ? 'text-[#a371f7]' : 'text-gray-300 dark:text-gray-600' }}">
+                                        class="size-4 transition-colors duration-150 {{ $app->is_favorite ? 'text-linko-purple ' : 'text-gray-300 dark:text-gray-600' }}">
                                         <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
                                     </svg>
                                 </button>
@@ -116,7 +124,7 @@
                                 <button
                                     wire:click="editApp({{ $app->id }})" x-on:click="modalIsOpen = true"
                                     wire:loading.attr="disabled"
-                                    class="absolute bottom-1 right-1 z-10 p-1 shadow-sm transition-transform active:scale-95"
+                                    class="absolute bottom-1 right-1 z-10 p-1 transition-transform active:scale-95"
                                     title="Editar App">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-4">
                                         <path fill="none" stroke="#4a5565" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14 6l2.293-2.293a1 1 0 0 1 1.414 0l2.586 2.586a1 1 0 0 1 0 1.414L18 10m-4-4l-9.707 9.707a1 1 0 0 0-.293.707V19a1 1 0 0 0 1 1h2.586a1 1 0 0 0 .707-.293L18 10m-4-4l4 4" />

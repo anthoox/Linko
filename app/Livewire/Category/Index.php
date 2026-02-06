@@ -106,7 +106,7 @@ class Index extends Component
             if ($this->editingCategoryId == $id) {
                 $this->resetFields();
             }
-
+            
             $this->dispatch('category-created');
             session()->flash('success', 'Categoría eliminada correctamente.');
         } catch (\Exception $e) {

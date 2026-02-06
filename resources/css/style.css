@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Quicksand:wght@300..700&display=swap');
 :root {
-    --bg-primary: #0d1117;
-    --bg-secondary: #161b22;
-    --bg-featured: #161b22;
     --text-color: #e6edf3;
     --text-secondary: #8b949e;
     --text-special: #2ea043;
@@ -18,24 +15,10 @@
 body {
     font-family: 'Nunito', sans-serif;
 }
-body, .bg-dub {
-    background-color: var(--bg-primary) !important;
-}
 
-.nav__item {
-    background-color: var(--bg-secondary);
-    border: 2px solid var(--bg-secondary);
-    transition: all 0.3s ease;
-}
-
-.nav__item:hover {
-    background-color: var(--bg-featured);
-    border: 2px solid var(--border-color);
-}
 
 a {
     text-decoration: none;
-    /* color: var(--text-color); */
 }
 
 a:hover {
@@ -52,37 +35,17 @@ a:hover {
     min-width: 125px;
     padding: 10px;
     border-radius: 0.5rem;
-    background-color: var(--bg-featured);
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 5px;
     position: relative;
-    border: 2px solid var(--border-color);
     transition: all 0.3s ease;
 }
 
-.featured__item:hover {
-    border-color: var(--link);
-}
 
 .featured__item:active {
     scale: 0.95;
-}
-
-.featured__item--disable {
-    max-width: 125px;
-    min-width: 125px;
-    padding: 10px;
-    border-radius: 0.5rem;
-    background-color: var(--bg-featured);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 5px;
-    position: relative;
-    border: 2px solid var(--border-color);
-    transition: all 0.3s ease;
 }
 
 .featured__icon {
@@ -91,7 +54,6 @@ a:hover {
     align-items: center;
     padding: 5px;
     border-radius: 0.5rem;
-    background-color: var(--border-color);
 }
 
 .featured__icon-img {
@@ -111,10 +73,6 @@ a:hover {
     cursor: pointer;
     color: var(--border-color);
     transition: all 0.3s ease-in-out;
-}
-
-.description__icon:hover {
-    color: var(--link);
 }
 
 .featured__icon-img {

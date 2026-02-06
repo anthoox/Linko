@@ -64,6 +64,17 @@
     
         /* border radius */
         --radius-radius: var(--radius-lg);
+
+        /* Tus colores personalizados para Linko */
+            --color-dub: #0d1117;
+            /* Fondo principal */
+            --color-dub-surface: #161b22;
+            /* Modales y Menús */
+            --color-dub-border: #30363d;
+            /* Bordes en modo oscuro */
+        
+            /* Si quieres que el morado sea el oficial de la marca */
+            --color-linko-purple: #a371f7;
 }
 
 @layer theme {
