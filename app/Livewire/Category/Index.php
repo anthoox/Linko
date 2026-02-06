@@ -74,9 +74,10 @@ class Index extends Component
             } else {
                 $iconPath = null;
                 if ($this->icon) {
-                    // Guardar en carpeta del usuario
-                    $iconPath = $this->icon->store($userPath, 'public');
-                }
+                    // El segundo parámetro 'public' es VITAL
+                    $path = $this->icon->store($userPath, 'public');
+                    $validatedData['icon'] = $path;
+                    }
 
                 Category::create([
                     'name' => $this->name,

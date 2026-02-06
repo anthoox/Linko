@@ -6,10 +6,7 @@
         <div class="mb-8 w-full flex max-w-5xl text-center">
             <ul class="flex justify-start gap-2 flex-wrap max-w-6xl">
                 @forelse($categories as $category)
-                <li wire:key="nav-cat-{{ $category->id }}" class="whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center transition-all duration-300
-           border-2 bg-white border-gray-200 
-           dark:bg-dub-surface dark:border-dub 
-           dark:hover:text-linko-purple hover:border-dub-border transition-colors">
+                <li wire:key="nav-cat-{{ $category->id }}" class="whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center transition-all duration-300 border-2 bg-white border-gray-100 dark:bg-dub-surface dark:border-dub-surface  dark:hover:text-linko-purple hover:text-neutral-900 hover:border-gray-300 dark:hover:border-dub-border ">
                     <a href="#categoria-{{ $category->name }}">{{ $category->name }}</a>
                 </li>
                 @empty
@@ -40,10 +37,10 @@
                     @forelse($favorites as $fav)
 
                     <div wire:key="fav-item-{{ $fav->id }}" class="featured__item featured__item--first 
-            bg-white border-2 border-gray-100 hover:border-linko-purple 
+            bg-white border-2 border-gray-300 hover:border-linko-purple 
             dark:bg-dub-surface dark:border-dub-border dark:hover:border-linko-purple 
             transition-colors duration-300">
-                        <div class="featured__icon bg-white dark:bg-dub-border  dark:border-dub-border border-2 border-gray-100">
+                        <div class="featured__icon bg-gray-100 dark:bg-dub-border  dark:border-dub-border ">
                             <img class="featured__icon-img featured__icon-img--first" src="{{ $fav->image_path ? asset('storage/' . $fav->image_path) : asset('assets/img/app.svg') }}" alt="{{ $fav->name }}">
                         </div>
                         <div class="featured__description">
@@ -65,8 +62,8 @@
                 </div>
                 @else
                 <div class="flex justify-start gap-2 flex-wrap duration-300 transition-transform ">
-                    <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none">
-                        <a class="text-gray-400" href="#">No hay favoritoss aún</a>
+                    <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none border-2 bg-white dark:bg-dub-surface dark:border-dub dark:border-dub-surface border-gray-200">
+                        <a class="text-gray-400" href="#">No hay favoritos aún</a>
                     </div>
                 </div>
                 @endif
@@ -78,10 +75,9 @@
             <div wire:key="cat-section-{{ $category->id }}" class="flex justify-start h-full w-full flex-1 flex-col gap-4 rounded-xl max-w-6xl">
                 <div class="flex items-center gap-2">
                     @if($category->icon)
-                    <img
-                        src="{{ asset('storage/' . $category->icon) }}"
-                        alt="Icono {{ $category->name }}"
-                        class="size-8 object-cover rounded-md" />
+
+
+                    <img src="{{ $category->icon ? asset('storage/' . $category->icon) : asset('assets/img/app.svg') }}" class="size-8 object-cover rounded-md">
                     @else
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-7" viewBox="0 0 24 24">
                         <g fill="none">
@@ -94,12 +90,12 @@
                 </div>
                 <div class="flex gap-2 flex-wrap">
                     @forelse($category->apps as $app)
-                    <div wire:key="app-{{ $app->id }}" class="featured__item bg-white border-2 border-gray-100 hover:border-linko-purple 
+                    <div wire:key="app-{{ $app->id }}" class="featured__item bg-white border-2 border-gray-300 hover:border-linko-purple 
             dark:bg-dub-surface dark:border-dub-border dark:hover:border-linko-purple 
-            transition-colors duration-300">
+            transition-colors duration-300 ">
                         <div class="flex items-center gap-2">
                             <div class="featured__icon">
-                                <img class="featured__icon-img bg-white dark:bg-dub-border rounded-md border-2 dark:border-dub-border " src="{{ $app->image_path ? asset('storage/' . $app->image_path) : asset('assets/img/app.svg') }}" alt="{{ $app->name }}">
+                                <img class="featured__icon-img bg-gray-100  dark:bg-dub-border rounded-md dark:border-dub-border" src="{{ $app->image_path ? asset('storage/' . $app->image_path) : asset('assets/img/app.svg') }}" alt="{{ $app->name }}">
                             </div>
 
                             <div class="featured__description">
@@ -136,7 +132,7 @@
 
                     </div>
                     @empty
-                    <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none">
+                    <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none border-2 bg-white dark:bg-dub-surface dark:border-dub dark:border-dub-surface">
                         <a class="text-gray-400" href="#">Categoría vacía</a>
                     </div>
                     @endforelse
@@ -144,7 +140,7 @@
             </div>
             @empty
             <div class="flex justify-start gap-2 flex-wrap">
-                <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none">
+                <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none border-2 bg-white dark:bg-dub-surface dark:border-dub dark:border-dub-surface">
                     <a class="text-gray-400" href="#">No hay aplicaciones aún</a>
                 </div>
             </div>

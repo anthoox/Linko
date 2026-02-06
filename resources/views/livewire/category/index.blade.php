@@ -5,7 +5,7 @@
         <button x-on:click="modalIsOpen = true" wire:click="resetFields" type="button" class="whitespace-nowrap rounded-radius bg-primary border border-primary px-4 py-2 text-center text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0 dark:bg-primary-dark dark:border-primary-dark dark:text-on-primary-dark dark:focus-visible:outline-primary-dark">Nueva Categoría</button>
         <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen" x-on:keydown.esc.window="modalIsOpen = false" x-on:click.self="modalIsOpen = false" class="fixed inset-0 z-30 flex w-full items-center justify-center bg-black/20 p-4 pb-8 backdrop-blur-md lg:p-8" role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle">
             <!-- Modal Dialog -->
-            <form wire:submit.prevent="save" x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="opacity-0 scale-50" x-transition:enter-end="opacity-100 scale-100" class="flex max-w-lg flex-col gap-4 overflow-hidden rounded-radius border border-outline bg-surface text-on-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark">
+            <form wire:submit.prevent="save" x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="opacity-0 scale-50" x-transition:enter-end="opacity-100 scale-100" class="flex max-w-lg min-w-lg flex-col gap-4 overflow-hidden rounded-radius border border-outline bg-surface text-on-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark">
                 <!-- Dialog Header -->
                 <div class="flex items-center justify-between border-b border-outline bg-surface-alt/60 p-4 dark:border-outline-dark dark:bg-surface-dark/20">
                     <h3 id="defaultModalTitle" class="font-semibold tracking-wide text-on-surface-strong dark:text-on-surface-dark-strong">
@@ -19,7 +19,7 @@
                 </div>
                 <!-- Dialog Body -->
                 <div class="px-4 py-8">
-                    <div class="flex w-full max-w-xs flex-col gap-1 text-on-surface dark:text-on-surface-dark">
+                    <div class="flex w-full flex-col gap-1 text-on-surface dark:text-on-surface-dark">
                         <label for="name" class="w-fit pl-0.5 text-sm">Nombre</label>
                         <input id="name" wire:model="name" type="text" class="w-full rounded-radius border border-outline bg-surface-alt px-2 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-75 dark:border-outline-dark dark:bg-surface-dark-alt/50 dark:focus-visible:outline-primary-dark" name="name" placeholder="Nombre categoría" />
                         @error('name')
@@ -27,21 +27,49 @@
                         @enderror
                     </div>
 
-                    <div class="relative flex w-full max-w-sm flex-col gap-1 mt-4">
-                        <label class="w-fit pl-0.5 text-sm text-on-surface dark:text-on-surface-dark" for="icon">Subir Archivo</label>
-                        <input id="icon" type="file" wire:model="icon" class="w-full overflow-clip rounded-radius border border-outline bg-surface-alt/50 text-sm text-on-surface file:mr-4 file:border-none file:bg-surface-alt file:px-2 file:py-2 file:font-medium file:text-on-surface-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-75 dark:border-outline-dark dark:bg-surface-dark-alt/50 dark:text-on-surface-dark dark:file:bg-surface-dark-alt dark:file:text-on-surface-dark-strong dark:focus-visible:outline-primary-dark" />
-                        @if ($icon)
-                        <div class="mt-2">
-                            <p class="text-xs">Nueva imagen:</p>
-                            <img src="{{ $icon->temporaryUrl() }}" class="size-10 object-cover rounded shadow-sm">
+                    <div class="relative flex w-full flex-col gap-2 mt-4">
+                        <label class="w-fit pl-0.5 text-sm font-semibold text-on-surface dark:text-on-surface-dark" for="icon">
+                            Icono de la categoría
+                        </label>
+
+                        <div class="group relative">
+                            <input id="icon" type="file" wire:model="icon"
+                                class="w-full cursor-pointer overflow-clip rounded-radius border border-outline bg-surface-alt/50 text-sm text-on-surface transition-all
+            file:mr-6 file:border-none file:bg-linko-purple file:px-4 file:py-2.5 file:text-xs file:tracking-widest file:text-white 
+            hover:border-linko-purple/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 
+            dark:border-outline-dark dark:bg-surface-dark-alt/50 dark:text-on-surface-dark dark:file:bg-linko-purple dark:focus-visible:outline-linko-purple" />
+
+                            <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none opacity-40">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                                </svg>
+                            </div>
                         </div>
-                        @elseif($currentIcon)
-                        <div class="mt-2">
-                            <p class="text-xs">Icono actual:</p>
-                            <img src="{{ asset('storage/' . $currentIcon) }}" class="size-10 object-cover rounded shadow-sm">
+
+                        @if ($icon || $currentIcon)
+                        <div class="mt-2 flex items-center gap-4 rounded-radius border border-outline/50 bg-surface-alt/30 p-3 dark:border-outline-dark/50 dark:bg-surface-dark-alt/30">
+                            <div class="relative size-14 shrink-0 overflow-hidden rounded-md border-2 border-white shadow-sm dark:border-dub-border">
+                                <img src="{{ $icon ? $icon->temporaryUrl() : asset('storage/' . $currentIcon) }}" class="h-full w-full object-cover">
+                            </div>
+                            <div class="flex flex-col">
+                                <p class="text-[10px] font-bold uppercase tracking-wider text-linko-purple">
+                                    {{ $icon ? 'Nueva imagen' : 'Icono actual' }}
+                                </p>
+                                <p class="text-xs text-on-surface/60 dark:text-on-surface-dark/60">
+                                    {{ $icon ? 'Lista para subir' : 'Almacenado en servidor' }}
+                                </p>
+                            </div>
+
+                            <div wire:loading wire:target="icon" class="ml-auto">
+                                <svg class="h-5 w-5 animate-spin text-linko-purple" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                            </div>
                         </div>
                         @endif
-                        @error('icon') <span class="text-xs text-red-500">{{ $message }}</span> @enderror
+
+                        @error('icon') <span class="ml-1 mt-1 text-xs font-medium text-red-500">{{ $message }}</span> @enderror
                     </div>
 
                 </div>

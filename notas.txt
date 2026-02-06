@@ -24,7 +24,7 @@ user -
 footer y enlaces -
 fondo menu -
 modo claro/oscuro fondos -
-tamaño foirmularios
+tamaño foirmularios -
 
 Diseño en movil y tablet
   inicio

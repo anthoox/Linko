@@ -6,7 +6,7 @@
 </head>
 
 <body class="min-h-screen bg-white dark:bg-dub">
-    <flux:header container class="border-b border-zinc-200  dark:border-zinc-700">
+    <flux:header container class="border-b border-zinc-200  dark:border-zinc-700 ">
         <div class="w-full max-w-5xl mx-auto flex content-center ">
             <flux:sidebar.toggle class="lg:hidden mr-2 " icon="bars-2" inset="left" />
             <flux:navbar class="-mb-px max-lg:hidden">
