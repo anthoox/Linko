@@ -61,14 +61,16 @@ class Index extends Component
             }
 
             if ($this->editingAppId) {
-                // ... resto de tu código de edición ...
+
                 $app = AppService::where('user_id', Auth::id())->findOrFail($this->editingAppId);
-                // (Asegúrate de usar $finalCategoryId en el update)
+
+                $path = $this->image ? $this->image->store($userPath, 'public') : null;
+
                 $app->update([
                     'name' => $this->name,
                     'url' => $this->url,
                     'category_id' => $finalCategoryId,
-                    // ...
+                    'image_path' => $path
                 ]);
             } else {
                 // --- MODO CREACIÓN ---
