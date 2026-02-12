@@ -27,8 +27,8 @@ modo claro/oscuro fondos -
 tamaño foirmularios -
 
 Diseño en movil y tablet
-  inicio
-  categorias
+  inicio -
+  categorias -
 Diseño portada y españolizar
 Diseño login y españolizar 
 

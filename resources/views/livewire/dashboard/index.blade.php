@@ -149,95 +149,101 @@
         </div>
 
         <!-- MODAL AÑADIR APP -->
-        <div class="fixed bottom-40 right-80 z-50">
-            <div x-data="{ modalIsOpen: false }" x-on:close-modal-success.window="modalIsOpen = false" x-on:open-modal.window="modalIsOpen = true">
-                <button x-on:click="modalIsOpen = true" type="button" class="whitespace-nowrap border rounded-full border-primary dark:border-primary-dark bg-primary px-4 py-4 text-center text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0 dark:bg-primary-dark dark:text-on-primary-dark dark:focus-visible:outline-primary-dark">
-                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-6 fill-on-primary dark:fill-on-primary-dark" fill="currentColor">
-                        <path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clip-rule="evenodd" />
-                    </svg>
-                </button>
+        <div class="fixed inset-x-0 bottom-0 z-50 pointer-events-none">
+            <div class="mx-auto max-w-6xl w-full relative h-24">
 
-                <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen" x-on:keydown.esc.window="modalIsOpen = false" x-on:click.self="modalIsOpen = false" class="fixed inset-0 z-30 flex w-full items-center justify-center bg-black/20 p-4 pb-8 backdrop-blur-md lg:p-8" role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle">
+                <div class="absolute bottom-10 right-6 lg:right-0 pointer-events-auto">
+                    <div x-data="{ modalIsOpen: false }" x-on:close-modal-success.window="modalIsOpen = false" x-on:open-modal.window="modalIsOpen = true">
+                        <button x-on:click="modalIsOpen = true" type="button" class="whitespace-nowrap border rounded-full border-primary dark:border-primary-dark bg-primary px-4 py-4 text-center text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0 dark:bg-primary-dark dark:text-on-primary-dark dark:focus-visible:outline-primary-dark">
+                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-6 fill-on-primary dark:fill-on-primary-dark" fill="currentColor">
+                                <path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
 
-                    <form wire:submit.prevent="saveApp" x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="scale-0" x-transition:enter-end="scale-100" class="flex max-w-lg min-w-lg flex-col gap-4 overflow-hidden rounded-radius border border-outline bg-surface text-on-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark">
+                        <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen" x-on:keydown.esc.window="modalIsOpen = false" x-on:click.self="modalIsOpen = false" class="fixed inset-0 z-30 flex w-full items-center justify-center bg-black/20 p-4 pb-8 backdrop-blur-md lg:p-8" role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle">
 
-                        <div class="flex items-center justify-between border-b border-outline bg-surface-alt/60 p-4 dark:border-outline-dark dark:bg-surface-dark/20">
-                            <h3 id="defaultModalTitle" class="font-semibold tracking-wide text-on-surface-strong dark:text-on-surface-dark-strong">{{ $editingAppId ? 'Editar Aplicación' : 'Nueva Aplicación' }}</h3>
-                            <button type="button" x-on:click="modalIsOpen = false" aria-label="close modal">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="1.4" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                        </div>
-                        <!-- Dialog Body -->
-                        <div class="px-4 py-8">
-                            <div class="flex w-full flex-col gap-1 text-on-surface dark:text-on-surface-dark">
-                                <label for="name" class="w-fit pl-0.5 text-sm">Nombre</label>
-                                <input id="name" wire:model="name" type="text" class="w-full rounded-radius border border-outline bg-surface-alt px-2 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-75 dark:border-outline-dark dark:bg-surface-dark-alt/50 dark:focus-visible:outline-primary-dark" placeholder="Nombre de la Aplicación" />
-                                @error('name') <span class="text-xs text-start text-red-500 ml-1">{{ $message }}</span> @enderror
-                            </div>
+                            <form wire:submit.prevent="saveApp" x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="scale-0" x-transition:enter-end="scale-100" class="flex w-full max-w-lg flex-col gap-4 overflow-hidden rounded-radius border border-outline bg-surface text-on-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark shadow-2xl mx-4 sm:mx-0">
 
-                            <div class="flex w-full flex-col gap-1 text-on-surface dark:text-on-surface-dark mt-4">
-                                <label for="url" class="w-fit pl-0.5 text-sm">URL</label>
-                                <input id="url" wire:model="url" type="text" class="w-full rounded-radius border border-outline bg-surface-alt px-2 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-75 dark:border-outline-dark dark:bg-surface-dark-alt/50 dark:focus-visible:outline-primary-dark" placeholder="Añade la URL" />
-                                @error('url') <span class="text-xs text-start text-red-500 ml-1">{{ $message }}</span> @enderror
-                            </div>
+                                <div class="flex items-center justify-between border-b border-outline bg-surface-alt/60 p-4 dark:border-outline-dark dark:bg-surface-dark/20">
+                                    <h3 id="defaultModalTitle" class="font-semibold tracking-wide text-on-surface-strong dark:text-on-surface-dark-strong">{{ $editingAppId ? 'Editar Aplicación' : 'Nueva Aplicación' }}</h3>
+                                    <button type="button" x-on:click="modalIsOpen = false" aria-label="close modal">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="1.4" class="w-5 h-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <!-- Dialog Body -->
+                                <div class="px-4 py-8">
+                                    <div class="flex w-full flex-col gap-1 text-on-surface dark:text-on-surface-dark">
+                                        <label for="name" class="w-fit pl-0.5 text-sm">Nombre</label>
+                                        <input id="name" wire:model="name" type="text" class="w-full rounded-radius border border-outline bg-surface-alt px-2 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-75 dark:border-outline-dark dark:bg-surface-dark-alt/50 dark:focus-visible:outline-primary-dark" placeholder="Nombre de la Aplicación" />
+                                        @error('name') <span class="text-xs text-start text-red-500 ml-1">{{ $message }}</span> @enderror
+                                    </div>
 
-                            <div class="relative flex w-full flex-col gap-1 text-on-surface dark:text-on-surface-dark mt-4">
-                                <label for="category_id" class="w-fit pl-0.5 text-sm">Categoría</label>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="absolute pointer-events-none right-4 top-8 size-5">
-                                    <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-                                </svg>
-                                <select id="category_id" wire:model="category_id" class="w-full appearance-none rounded-radius border border-outline bg-surface-alt px-2 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:border-outline-dark dark:bg-surface-dark-alt/50 dark:focus-visible:outline-primary-dark">
-                                    <option value="">Sin categoría</option>
-                                    @foreach($categories as $cat)
-                                    @if($cat->name !== 'Sin categoría')
-                                    <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-                                    @endif
-                                    @endforeach
-                                </select>
-                            </div>
+                                    <div class="flex w-full flex-col gap-1 text-on-surface dark:text-on-surface-dark mt-4">
+                                        <label for="url" class="w-fit pl-0.5 text-sm">URL</label>
+                                        <input id="url" wire:model="url" type="text" class="w-full rounded-radius border border-outline bg-surface-alt px-2 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-75 dark:border-outline-dark dark:bg-surface-dark-alt/50 dark:focus-visible:outline-primary-dark" placeholder="Añade la URL" />
+                                        @error('url') <span class="text-xs text-start text-red-500 ml-1">{{ $message }}</span> @enderror
+                                    </div>
 
-                            <div class="relative flex w-full flex-col gap-1 mt-4">
-                                <label class="w-fit pl-0.5 text-sm text-on-surface dark:text-on-surface-dark" for="image">Imagen</label>
+                                    <div class="relative flex w-full flex-col gap-1 text-on-surface dark:text-on-surface-dark mt-4">
+                                        <label for="category_id" class="w-fit pl-0.5 text-sm">Categoría</label>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="absolute pointer-events-none right-4 top-8 size-5">
+                                            <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                                        </svg>
+                                        <select id="category_id" wire:model="category_id" class="w-full appearance-none rounded-radius border border-outline bg-surface-alt px-2 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary dark:border-outline-dark dark:bg-surface-dark-alt/50 dark:focus-visible:outline-primary-dark">
+                                            <option value="">Sin categoría</option>
+                                            @foreach($categories as $cat)
+                                            @if($cat->name !== 'Sin categoría')
+                                            <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                            @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
 
-                                <input id="image" type="file" wire:model.live="image" class="w-full cursor-pointer overflow-clip rounded-radius border border-outline bg-surface-alt/50 text-sm text-on-surface transition-all
+                                    <div class="relative flex w-full flex-col gap-1 mt-4">
+                                        <label class="w-fit pl-0.5 text-sm text-on-surface dark:text-on-surface-dark" for="image">Imagen</label>
+
+                                        <input id="image" type="file" wire:model.live="image" class="w-full cursor-pointer overflow-clip rounded-radius border border-outline bg-surface-alt/50 text-sm text-on-surface transition-all
             file:mr-6 file:border-none file:bg-linko-purple file:px-4 file:py-2.5 file:text-xs file:tracking-widest file:text-white 
             hover:border-linko-purple/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 
             dark:border-outline-dark dark:bg-surface-dark-alt/50 dark:text-on-surface-dark dark:file:bg-linko-purple dark:focus-visible:outline-linko-purple" accept="image/*" />
 
-                                <div wire:loading wire:target="image" class="text-xs text-blue-500 mt-1">Procesando imagen...</div>
+                                        <div wire:loading wire:target="image" class="text-xs text-blue-500 mt-1">Procesando imagen...</div>
 
-                                @if ($image && !$errors->has('image'))
-                                <div class="mt-2 text-xs text-green-600 flex items-center gap-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    Listo: {{ $image->getClientOriginalName() }}
+                                        @if ($image && !$errors->has('image'))
+                                        <div class="mt-2 text-xs text-green-600 flex items-center gap-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="size-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            Listo: {{ $image->getClientOriginalName() }}
+                                        </div>
+                                        @endif
+                                        @error('image') <span class="text-xs text-start text-red-500 mt-1 font-medium">{{ $message }}</span> @enderror
+                                    </div>
                                 </div>
-                                @endif
-                                @error('image') <span class="text-xs text-start text-red-500 mt-1 font-medium">{{ $message }}</span> @enderror
-                            </div>
-                        </div>
 
-                        <div class="flex flex-col-reverse justify-between gap-2 border-t border-outline bg-surface-alt/60 p-4 dark:border-outline-dark dark:bg-surface-dark/20 sm:flex-row sm:items-center md:justify-end">
-                            @if($editingAppId)
-                            <button
-                                type="button"
-                                wire:click="deleteApp"
-                                wire:confirm="¿Estás seguro de que quieres eliminar esta aplicación?"
-                                class="whitespace-nowrap rounded-radius bg-red-500/10 px-4 py-2 text-center text-sm font-medium text-red-600 transition hover:bg-red-500 hover:text-white">
-                                Eliminar
-                            </button>
-                            @endif
-                            <button x-on:click="modalIsOpen = false" type="button" class="whitespace-nowrap rounded-radius px-4 py-2 text-center text-sm font-medium tracking-wide text-on-surface transition hover:opacity-75 dark:text-on-surface-dark">Cancelar</button>
-                            <button type="submit" wire:loading.attr="disabled" wire:target="saveApp, image" class="whitespace-nowrap rounded-radius bg-primary border border-primary px-4 py-2 text-center text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0 dark:bg-primary-dark dark:border-primary-dark dark:text-on-primary-dark dark:focus-visible:outline-primary-dark">
-                                <span wire:loading.remove wire:target="saveApp">{{ $editingAppId ? 'Actualizar' : 'Guardar' }}</span>
-                                <span wire:loading wire:target="saveApp">Guardando...</span>
-                            </button>
+                                <div class="flex flex-col-reverse justify-between gap-2 border-t border-outline bg-surface-alt/60 p-4 dark:border-outline-dark dark:bg-surface-dark/20 sm:flex-row sm:items-center md:justify-end">
+                                    @if($editingAppId)
+                                    <button
+                                        type="button"
+                                        wire:click="deleteApp"
+                                        wire:confirm="¿Estás seguro de que quieres eliminar esta aplicación?"
+                                        class="whitespace-nowrap rounded-radius bg-red-500/10 px-4 py-2 text-center text-sm font-medium text-red-600 transition hover:bg-red-500 hover:text-white">
+                                        Eliminar
+                                    </button>
+                                    @endif
+                                    <button x-on:click="modalIsOpen = false" type="button" class="whitespace-nowrap rounded-radius px-4 py-2 text-center text-sm font-medium tracking-wide text-on-surface transition hover:opacity-75 dark:text-on-surface-dark">Cancelar</button>
+                                    <button type="submit" wire:loading.attr="disabled" wire:target="saveApp, image" class="whitespace-nowrap rounded-radius bg-primary border border-primary px-4 py-2 text-center text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0 dark:bg-primary-dark dark:border-primary-dark dark:text-on-primary-dark dark:focus-visible:outline-primary-dark">
+                                        <span wire:loading.remove wire:target="saveApp">{{ $editingAppId ? 'Actualizar' : 'Guardar' }}</span>
+                                        <span wire:loading wire:target="saveApp">Guardando...</span>
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
+
             </div>
         </div>
 
