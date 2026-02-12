@@ -61,7 +61,7 @@ class Index extends Component
             }
 
             if ($this->editingAppId) {
-
+                // --- MODO EDICIÓN ---
                 $app = AppService::where('user_id', Auth::id())->findOrFail($this->editingAppId);
 
                 $path = $this->image ? $this->image->store($userPath, 'public') : null;
