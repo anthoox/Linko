@@ -15,11 +15,16 @@
 body {
     font-family: 'Nunito', sans-serif;
 }
-
-a:hover {
-    /* color: var(--link) !important; */
+.linko-bg{
+    background-color: #0d1117;
 }
-
+.linko-purple{
+    transition: all 0.3s ease;
+}
+.linko-purple:hover{
+    color: var(--link);
+    background-color: #161b22;
+}
 .featured__logo-img {
     width: 20px;
     height: 20px;

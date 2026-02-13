@@ -60,7 +60,7 @@
         <div class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
             <main class="flex w-full flex-col-reverse lg:max-w-6xl lg:flex-row items-stretch shadow-2xl border border-black/5 dark:border-white/10 rounded-[2rem] overflow-hidden dark:shadow-[20px_0_50px_rgba(0,0,0,0.8)] lg:h-[550px]">
     
-    <div class="z-20 text-[13px] leading-[20px] flex-1 p-8 lg:p-16 bg-second dark:bg-[#8b949e] dark:text-[#EDEDEC] flex flex-col justify-center shadow-[20px_0_50px_rgba(0,0,0,0.05)]">
+    <div class="z-20 text-[13px] leading-[20px] flex-1 p-8 lg:p-16 bg-second git dark:text-[#EDEDEC] flex flex-col justify-center shadow-[20px_0_50px_rgba(0,0,0,0.05)]">
 
         <h1 class="mb-4 text-4xl lg:text-6xl font-bold tracking-tight font-['Instrument_Sans']">
              <span class="text-[#7C3AED] text-linko-purple">Centraliza tus herramientas.</span> Simplifica tu día.

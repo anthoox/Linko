@@ -1,4 +1,4 @@
-<section class="w-full max-w-5xl mx-auto">
+<section class="w-full max-w-6xl mx-auto">
     @include('partials.settings-heading')
 
     <flux:heading class="sr-only">{{ __('Password Settings') }}</flux:heading>

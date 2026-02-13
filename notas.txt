@@ -31,7 +31,7 @@ Diseño en movil y tablet
   categorias -
 Diseño portada y españolizar -
 Diseño login y españolizar -
-modo claro
+modo claro dentro de la aplicacion
 
 redirecciones url par que envie a una web 404.
 Seguridad en url

@@ -14,10 +14,10 @@
             </flux:navbar>
 
             <flux:navbar class="-mb-px max-lg:hidden">
-                <flux:navbar.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
+                <flux:navbar.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')"  wire:navigate>
                     {{ __('Inicio') }}
                 </flux:navbar.item>
-                <flux:navbar.item icon="tag" :href="route('category.index')" :current="request()->routeIs('category.index')" wire:navigate>
+                <flux:navbar.item icon="tag" :href="route('category.index')" :current="request()->routeIs('category.index')"  wire:navigate>
                     Categorias
                 </flux:navbar.item>
             </flux:navbar>

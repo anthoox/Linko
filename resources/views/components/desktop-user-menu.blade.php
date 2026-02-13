@@ -5,8 +5,8 @@
         icon:trailing="chevrons-up-down"
         data-test="sidebar-menu-button" />
 
-    <flux:menu>
-        <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
+    <flux:menu class="dark:linko-bg">
+        <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm ">
             <flux:avatar
                 :name="auth()->user()->name"
                 :initials="auth()->user()->initials()" />
