@@ -67,14 +67,16 @@
 
         /* Tus colores personalizados para Linko */
             --color-dub: #0d1117;
+            --color-second: #161B22;
             /* Fondo principal */
             --color-dub-surface: #161b22;
             /* Modales y Menús */
             --color-dub-border: #30363d;
             /* Bordes en modo oscuro */
         
-            /* Si quieres que el morado sea el oficial de la marca */
+            /* Enlaces */
             --color-linko-purple: #a371f7;
+;
 }
 
 @layer theme {

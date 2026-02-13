@@ -16,13 +16,8 @@ body {
     font-family: 'Nunito', sans-serif;
 }
 
-
-a {
-    text-decoration: none;
-}
-
 a:hover {
-    color: var(--link) !important;
+    /* color: var(--link) !important; */
 }
 
 .featured__logo-img {

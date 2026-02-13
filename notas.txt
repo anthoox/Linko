@@ -29,7 +29,7 @@ tamaño foirmularios -
 Diseño en movil y tablet
   inicio -
   categorias -
-Diseño portada y españolizar
+Diseño portada y españolizar -
 Diseño login y españolizar 
 
 redirecciones url par que envie a una web 404.

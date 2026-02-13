@@ -1,4 +1,4 @@
-<div class="w-full max-w-5xl mx-auto ">
+<div class="w-full max-w-6xl mx-auto ">
     <div x-data="{modalIsOpen: false}" x-on:category-created.window="modalIsOpen = false"
         x-on:open-modal.window="modalIsOpen = true"
         x-on:keydown.esc.window="modalIsOpen = false">

@@ -3,7 +3,7 @@
     <div class="flex flex-col items-center w-full">
 
         <!-- LISTA DE CATEGORIAS -->
-        <div class="mb-8 w-full flex max-w-5xl text-center">
+        <div class="mb-8 w-full flex max-w-6xl text-center">
             <ul class="flex justify-start gap-2 flex-wrap max-w-6xl">
                 @forelse($categories as $category)
                 <li wire:key="nav-cat-{{ $category->id }}" class="whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center transition-all duration-300 border-2 bg-white border-gray-100 dark:bg-dub-surface dark:border-dub-surface  dark:hover:text-linko-purple hover:text-neutral-900 hover:border-gray-300 dark:hover:border-dub-border ">
@@ -18,7 +18,7 @@
         </div>
 
         <!-- APPS -->
-        <div class="flex flex-col gap-7 mb-8 w-full max-w-5xl text-center">
+        <div class="flex flex-col gap-7 mb-8 w-full max-w-6xl text-center">
 
             <!-- FAVORITOS -->
             <div class="flex justify-start h-full flex-1 flex-col gap-4 max-w-6xl">
