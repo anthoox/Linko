@@ -36,25 +36,25 @@
 
                     @forelse($favorites as $fav)
 
-                    <div wire:key="fav-item-{{ $fav->id }}" class="featured__item featured__item--first 
-            bg-white border-2 border-gray-300 hover:border-linko-purple 
-            dark:bg-dub-surface dark:border-dub-border dark:hover:border-linko-purple 
-            transition-colors duration-300">
+                    <a href="{{ $fav->url }}" target="_blank" wire:key="fav-item-{{ $fav->id }}" class="featured__item featured__item--first dark:hover:text-linko-purple 
+                    bg-white border-2 border-gray-300 hover:border-linko-purple 
+                    dark:bg-dub-surface dark:border-dub-border dark:hover:border-linko-purple 
+                    transition-colors duration-300 cursor-pointer">
                         <div class="featured__icon bg-gray-100 dark:bg-dub-border  dark:border-dub-border ">
                             <img class="featured__icon-img featured__icon-img--first" src="{{ $fav->image_path ? asset('storage/' . $fav->image_path) : asset('assets/img/app.svg') }}" alt="{{ $fav->name }}">
                         </div>
                         <div class="featured__description">
-                            <a href="{{ $fav->url }}" target="_blank">
-                                <h3 class="featured__subtitle featured__subtitle--first dark:hover:text-linko-purple transition-colors duration-300">{{ $fav->name }}</h3>
-                            </a>
+                            <!-- <a href="{{ $fav->url }}" target="_blank"> -->
+                            <h3 class="featured__subtitle featured__subtitle--first dark:hover:text-linko-purple transition-colors duration-300">{{ $fav->name }}</h3>
+
                         </div>
-                        <a href="{{ $fav->url }}" target="_blank"><i class="featured__arrow las la-angle-right"></i></a>
-                    </div>
+                        <i class="featured__arrow las la-angle-right "></i>
+                    </a>
 
                     @empty
                     <div class="flex justify-start gap-2 flex-wrap">
                         <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none">
-                            <a class="text-gray-400" href="#">No hay favoritos aún</a>
+                            <span class="text-gray-400">No hay favoritos aún</span>
                         </div>
                     </div>
                     @endforelse
@@ -63,7 +63,7 @@
                 @else
                 <div class="flex justify-start gap-2 flex-wrap duration-300 transition-transform ">
                     <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none border-2 bg-white dark:bg-dub-surface dark:border-dub dark:border-dub-surface border-gray-200">
-                        <a class="text-gray-400" href="#">No hay favoritos aún</a>
+                        <span class="text-gray-400">No hay favoritos aún</span>
                     </div>
                 </div>
                 @endif
@@ -89,23 +89,24 @@
                     <h3 id="categoria-{{ $category->name }}">{{ $category->name }}</h3>
                 </div>
                 <div class="flex gap-2 flex-wrap">
+
                     @forelse($category->apps as $app)
                     <div wire:key="app-{{ $app->id }}" class="featured__item bg-white border-2 border-gray-300 hover:border-linko-purple 
             dark:bg-dub-surface dark:border-dub-border dark:hover:border-linko-purple 
-            transition-colors duration-300 ">
-                        <div class="flex items-center gap-2">
+            transition-colors duration-300 dark:hover:text-linko-purple cursor-pointer">
+                        <a href="{{ $app->url }}" target="_blank" class="absolute inset-0 z-0"></a>
+                        <div class=" flex items-center gap-2">
                             <div class="featured__icon">
                                 <img class="featured__icon-img bg-gray-100  dark:bg-dub-border rounded-md dark:border-dub-border" src="{{ $app->image_path ? asset('storage/' . $app->image_path) : asset('assets/img/app.svg') }}" alt="{{ $app->name }}">
                             </div>
 
                             <div class="featured__description">
-                                <a href="{{ $app->url }}" target="_blank">
-                                    <h3 class="featured__subtitle dark:hover:text-linko-purple transition-colors">{{ $app->name }}</h3>
-                                </a>
+                                <h3 class="featured__subtitle  transition-colors">{{ $app->name }}</h3>
+
                             </div>
                             <div>
                                 <button
-                                    wire:click="toggleFavorite({{ $app->id }})"
+                                    wire:click.stop="toggleFavorite({{ $app->id }})"
                                     wire:loading.attr="disabled"
                                     class="absolute top-1 right-1 z-10 p-1 transition-transform active:scale-95"
                                     title="Marcar como favorito">
@@ -118,7 +119,7 @@
                                 </button>
 
                                 <button
-                                    wire:click="editApp({{ $app->id }})" x-on:click="modalIsOpen = true"
+                                    wire:click.stop="editApp({{ $app->id }})" x-on:click.stop="modalIsOpen = true"
                                     wire:loading.attr="disabled"
                                     class="absolute bottom-1 right-1 z-10 p-1 transition-transform active:scale-95"
                                     title="Editar App">
@@ -133,7 +134,7 @@
                     </div>
                     @empty
                     <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none border-2 bg-white dark:bg-dub-surface dark:border-dub dark:border-dub-surface">
-                        <a class="text-gray-400" href="#">Categoría vacía</a>
+                        <span class="text-gray-400">Categoría vacía</span>
                     </div>
                     @endforelse
                 </div>
@@ -141,7 +142,7 @@
             @empty
             <div class="flex justify-start gap-2 flex-wrap">
                 <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none border-2 bg-white dark:bg-dub-surface dark:border-dub dark:border-dub-surface">
-                    <a class="text-gray-400" href="#">No hay aplicaciones aún</a>
+                    <span class="text-gray-400">No hay aplicaciones aún</span>
                 </div>
             </div>
             @endforelse

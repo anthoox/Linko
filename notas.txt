@@ -30,7 +30,8 @@ Diseño en movil y tablet
   inicio -
   categorias -
 Diseño portada y españolizar -
-Diseño login y españolizar 
+Diseño login y españolizar -
+modo claro
 
 redirecciones url par que envie a una web 404.
 Seguridad en url
