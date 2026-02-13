@@ -2,7 +2,7 @@
     <div class="flex flex-col gap-6">
         <x-auth-header
             :title="__('Confirmar contraseña')"
-            :description="__('This is a secure area of the application. Please confirm your password before continuing.')" />
+            :description="__('Esta es una zona segura de la aplicación. Confirme su contraseña antes de continuar.')" />
 
         <x-auth-session-status class="text-center" :status="session('status')" />
 
@@ -16,7 +16,7 @@
                 required
                 autocomplete="current-password"
                 :placeholder="__('Contraseña')"
-                viewable/>
+                viewable />
 
             <flux:button variant="primary" type="submit" class="w-full" data-test="confirm-password-button">
                 {{ __('Confirmar') }}

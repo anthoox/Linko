@@ -4,10 +4,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Linko</title>
 
-        <link rel="icon" href="/favicon.ico" sizes="any">
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+        <link rel="icon" href="{{ asset('assets/img/logo-linko-transparent.ico') }}" sizes="any">
+        
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
         <!-- Fonts -->
@@ -48,7 +49,7 @@
                         @if (Route::has('register'))
                             <a
                                 href="{{ route('register') }}"
-                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] bg-second  border-second hover:text-linko-purple hover:border-dub-border   border-2 text-[#1b1b18] dark:border-dub-surface dark:hover:border-linko-purple transition rounded-md text-sm leading-normal ">
+                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] bg-second  border-second hover:text-linko-purple hover:border-dub-border   border-2 text-[#1b1b18] dark:border-dub-surface dark:hover:border-linko-purple transition rounded-md text-sm leading-normal">
                                 Registro
                             </a>
                         @endif
