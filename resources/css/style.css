@@ -31,9 +31,9 @@ body {
 }
 
 .featured__item {
-    max-width: 125px;
+    /* max-width: 125px; */
     min-width: 125px;
-    padding: 10px;
+    padding: 10px 15px 10px 10px;
     border-radius: 0.5rem;
     display: flex;
     flex-direction: row;
@@ -59,7 +59,7 @@ body {
 .featured__icon-img {
     width: 31px;
     height: 31px;
-    padding: 2px;
+    padding: 3px;
 }
 
 .featured__description {

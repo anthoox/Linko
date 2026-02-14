@@ -6,7 +6,7 @@
         <div class="mb-8 w-full flex max-w-6xl text-center">
             <ul class="flex justify-start gap-2 flex-wrap max-w-6xl">
                 @forelse($categories as $category)
-                <li wire:key="nav-cat-{{ $category->id }}" class="whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center transition-all duration-300 border-2 bg-white border-gray-100 dark:bg-dub-surface dark:border-dub-surface  dark:hover:text-linko-purple hover:text-neutral-900 hover:border-gray-300 dark:hover:border-dub-border ">
+                <li wire:key="nav-cat-{{ $category->id }}" class="whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center transition-all duration-300 border-2 hover:text-violet-700 bg-gray-100 border-gray-100 hover:border-gray-300 dark:bg-dub-surface dark:border-dub-surface  dark:hover:text-linko-purple   dark:hover:border-dub-border ">
                     <a href="#categoria-{{ $category->name }}">{{ $category->name }}</a>
                 </li>
                 @empty
@@ -22,7 +22,7 @@
 
             <!-- FAVORITOS -->
             <div class="flex justify-start h-full flex-1 flex-col gap-4 max-w-6xl">
-
+                <!-- TITULO FAVORITOS -->
                 @if ($favorites->count() > 0)
                 <div class="flex flex-col ds gap-2">
                     <div class="flex items-center gap-2">
@@ -32,23 +32,24 @@
                         <h3>Favoritos</h3>
                     </div>
                 </div>
+
+                <!-- APPS FAVORITAS -->
                 <div class=" flex gap-2 flex-wrap">
 
                     @forelse($favorites as $fav)
 
-                    <a href="{{ $fav->url }}" target="_blank" wire:key="fav-item-{{ $fav->id }}" class="featured__item featured__item--first dark:hover:text-linko-purple 
-                    bg-white border-2 border-gray-300 hover:border-linko-purple 
+                    <a href="{{ $fav->url }}" target="_blank" wire:key="fav-item-{{ $fav->id }}" class="featured__item featured__item--first dark:hover:text-linko-purple hover:text-violet-700
+                    bg-white border-2 border-gray-300 hover:border-violet-700 
                     dark:bg-dub-surface dark:border-dub-border dark:hover:border-linko-purple 
                     transition-colors duration-300 cursor-pointer">
                         <div class="featured__icon bg-gray-100 dark:bg-dub-border  dark:border-dub-border ">
                             <img class="featured__icon-img featured__icon-img--first" src="{{ $fav->image_path ? asset('storage/' . $fav->image_path) : asset('assets/img/app.svg') }}" alt="{{ $fav->name }}">
                         </div>
                         <div class="featured__description">
-                            <!-- <a href="{{ $fav->url }}" target="_blank"> -->
-                            <h3 class="featured__subtitle featured__subtitle--first dark:hover:text-linko-purple transition-colors duration-300">{{ $fav->name }}</h3>
+                            <h3 class="featured__subtitle featured__subtitle--first transition-colors duration-300">{{ $fav->name }}</h3>
 
                         </div>
-                        <i class="featured__arrow las la-angle-right "></i>
+                        <i class="featured__arrow las la-angle-right dark:hover:text-linko-purple"></i>
                     </a>
 
                     @empty
@@ -93,9 +94,9 @@
                     @forelse($category->apps as $app)
                     <div wire:key="app-{{ $app->id }}" class="featured__item bg-white border-2 border-gray-300 hover:border-linko-purple 
             dark:bg-dub-surface dark:border-dub-border dark:hover:border-linko-purple 
-            transition-colors duration-300 dark:hover:text-linko-purple cursor-pointer">
+            transition-colors duration-300 dark:hover:text-linko-purple hover:text-violet-700 cursor-pointer">
                         <a href="{{ $app->url }}" target="_blank" class="absolute inset-0 z-0"></a>
-                        <div class=" flex items-center gap-2">
+                        <div class=" flex items-center gap-1">
                             <div class="featured__icon">
                                 <img class="featured__icon-img bg-gray-100  dark:bg-dub-border rounded-md dark:border-dub-border" src="{{ $app->image_path ? asset('storage/' . $app->image_path) : asset('assets/img/app.svg') }}" alt="{{ $app->name }}">
                             </div>
