@@ -14,16 +14,24 @@
             </flux:navbar>
 
             <flux:navbar class="-mb-px max-lg:hidden">
-                <flux:navbar.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')"  wire:navigate>
+                <flux:navbar.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                     {{ __('Inicio') }}
                 </flux:navbar.item>
-                <flux:navbar.item icon="tag" :href="route('category.index')" :current="request()->routeIs('category.index')"  wire:navigate>
+                <flux:navbar.item icon="tag" :href="route('category.index')" :current="request()->routeIs('category.index')" wire:navigate>
                     Categorias
                 </flux:navbar.item>
             </flux:navbar>
 
             <flux:spacer />
 
+            <flux:navbar class="-mb-px max-lg:hidden">
+                <flux:navbar.item icon="folder-git-2" href="https://github.com/anthoox/Linko" target="_blank">
+                    {{ __('GitHub') }}
+                </flux:navbar.item>
+                <flux:navbar.item icon="computer-desktop" href="https://anthoox.es/" target="_blank">
+                    {{ __('Portfolio') }}
+                </flux:navbar.item>
+            </flux:navbar>
 
 
             <flux:navbar class="me-1.5 space-x-0.5 rtl:space-x-reverse py-0!">
@@ -41,21 +49,22 @@
         </flux:sidebar.header>
 
         <flux:sidebar.nav>
-            <flux:sidebar.group :heading="__('Platform')">
-                <flux:sidebar.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                    {{ __('Dashboard')  }}
-                </flux:sidebar.item>
-            </flux:sidebar.group>
+            <flux:sidebar.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
+                {{ __('Inicio') }}
+            </flux:sidebar.item>
+            <flux:sidebar.item icon="tag" :href="route('category.index')" :current="request()->routeIs('category.index')" wire:navigate>
+                Categorias
+            </flux:sidebar.item>
         </flux:sidebar.nav>
 
         <flux:spacer />
 
         <flux:sidebar.nav>
-            <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                {{ __('Repository') }}
+            <flux:sidebar.item icon="folder-git-2" href="https://github.com/anthoox/Linko" target="_blank">
+                {{ __('GitHub') }}
             </flux:sidebar.item>
-            <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                {{ __('Documentation') }}
+            <flux:sidebar.item icon="computer-desktop" href="https://anthoox.es/" target="_blank">
+                {{ __('Portfolio') }}
             </flux:sidebar.item>
         </flux:sidebar.nav>
     </flux:sidebar>
