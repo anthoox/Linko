@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            // Relación con el usuario
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->string('icon')->nullable(); // Guardaremos el nombre del icono (ej: 'fa-home')
-            $table->timestamps(); // Esto crea created_at y updated_at automáticamente
+            $table->string('icon')->nullable(); 
+            $table->timestamps(); 
         });
     }
 

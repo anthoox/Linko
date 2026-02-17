@@ -48,12 +48,11 @@ class Index extends Component
         try {
             $userPath = 'users/' . Auth::id() . '/apps';
 
-            // --- LÓGICA DE CATEGORÍA AUTOMÁTICA ---
             if (empty($this->category_id)) {
-                // Buscamos si el usuario ya tiene la categoría "Sin categoría"
+                
                 $defaultCategory = Category::firstOrCreate(
                     ['user_id' => Auth::id(), 'name' => 'Sin categoría'],
-                    ['icon' => null] // Puedes poner un icono por defecto aquí si quieres
+                    ['icon' => null] 
                 );
                 $finalCategoryId = $defaultCategory->id;
             } else {
@@ -61,7 +60,7 @@ class Index extends Component
             }
 
             if ($this->editingAppId) {
-                // --- MODO EDICIÓN ---
+                
                 $app = AppService::where('user_id', Auth::id())->findOrFail($this->editingAppId);
 
                 $path = $this->image ? $this->image->store($userPath, 'public') : null;
@@ -73,7 +72,7 @@ class Index extends Component
                     'image_path' => $path
                 ]);
             } else {
-                // --- MODO CREACIÓN ---
+                
                 $path = $this->image ? $this->image->store($userPath, 'public') : null;
 
                 AppService::create([
@@ -81,7 +80,7 @@ class Index extends Component
                     'name' => $this->name,
                     'url' => $this->url,
                     'image_path' => $path,
-                    'category_id' => $finalCategoryId, // Ahora siempre tendrá un ID
+                    'category_id' => $finalCategoryId, 
                     'is_favorite' => false,
                 ]);
             }

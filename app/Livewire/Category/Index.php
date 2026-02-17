@@ -14,7 +14,6 @@ class Index extends Component
     use WithPagination;
     use WithFileUploads;
 
-    // Propiedades para el formulario
     public $name, $icon;
     public $editingCategoryId = null;
     public $currentIcon = null;
@@ -63,7 +62,7 @@ class Index extends Component
                     if ($category->icon) {
                         Storage::disk('public')->delete($category->icon);
                     }
-                    // Guardar en carpeta del usuario
+                    
                     $iconPath = $this->icon->store($userPath, 'public');
                 }
 
@@ -74,7 +73,7 @@ class Index extends Component
             } else {
                 $iconPath = null;
                 if ($this->icon) {
-                    // El segundo parámetro 'public' es VITAL
+                    
                     $path = $this->icon->store($userPath, 'public');
                     $validatedData['icon'] = $path;
                     }

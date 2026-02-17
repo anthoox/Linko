@@ -13,14 +13,11 @@ Route::get('/', function () {
 })->name('home');
 
 
-// --- RUTAS PROTEGIDAS (Solo usuarios logueados) ---
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    // Dashboard
     Route::get('/home', DashboardIndex::class)->name('dashboard');
     Route::redirect('/dashboard', '/home');
 
-    // Categorías
     Route::get('categories', index::class)->name('category.index');
 
     require __DIR__ . '/settings.php';
