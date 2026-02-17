@@ -33,9 +33,10 @@ Diseño portada y españolizar -
 Diseño login y españolizar -
 modo claro dentro de la aplicacion -
 
-redirecciones url par que envie a una web 404.
-Seguridad en url
-tokkes formularios
-No mostrar mensajes de error.
+redirecciones url par que envie a una web 404. -
+eliminar comentarios imnecesarios en el codigo
+Seguridad en url -
+tokkes formularios -
+No mostrar mensajes de error de laravel.
 Como subir
 subir

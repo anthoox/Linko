@@ -13,15 +13,15 @@ Route::get('/', function () {
 })->name('home');
 
 
-Route::get('categories', Index::class)
-    ->middleware(['auth'])
-    ->name('category.index');
+// --- RUTAS PROTEGIDAS (Solo usuarios logueados) ---
+Route::middleware(['auth', 'verified'])->group(function () {
 
+    // Dashboard
+    Route::get('/home', DashboardIndex::class)->name('dashboard');
+    Route::redirect('/dashboard', '/home');
 
-Route::get('/home', DashboardIndex::class)
-    ->middleware(['auth'])
-    ->name('dashboard');
+    // Categorías
+    Route::get('categories', index::class)->name('category.index');
 
-Route::redirect('/dashboard', '/home');
-
-require __DIR__.'/settings.php';
+    require __DIR__ . '/settings.php';
+});

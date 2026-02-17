@@ -104,5 +104,8 @@
         @if (Route::has('login'))
             <div class="h-14.5 hidden lg:block"></div>
         @endif
+          <footer class="mt-8 text-xs text-zinc-500 dark:text-zinc-600 font-['Instrument_Sans']">
+    &copy; {{ date('Y') }} Linko — Tu ecosistema digital.
+  </footer>
     </body>
 </html>
