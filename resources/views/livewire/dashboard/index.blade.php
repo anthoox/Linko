@@ -10,8 +10,8 @@
                     <a href="#categoria-{{ $category->name }}">{{ $category->name }}</a>
                 </li>
                 @empty
-                <li class="whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item inline-block align-middle pointer-events-none">
-                    <a class="text-gray-400" href="#">No hay categorías aún</a>
+                <li class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none border-2 bg-white dark:bg-dub-surface dark:border-dub dark:border-dub-surface">
+                    <span class="text-gray-400" href="#">No hay categorías aún</span>
                 </li>
                 @endforelse
             </ul>
