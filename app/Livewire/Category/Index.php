@@ -72,11 +72,11 @@ class Index extends Component
                 ]);
             } else {
                 $iconPath = null;
+
                 if ($this->icon) {
-                    
-                    $path = $this->icon->store($userPath, 'public');
-                    $validatedData['icon'] = $path;
-                    }
+
+                    $iconPath = $this->icon->store($userPath, 'public');
+                }
 
                 Category::create([
                     'name' => $this->name,
