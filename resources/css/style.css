@@ -25,14 +25,10 @@ body {
     color: var(--link);
     background-color: #161b22;
 }
-.featured__logo-img {
-    width: 20px;
-    height: 20px;
-}
+
 
 .featured__item {
-    /* max-width: 125px; */
-    min-width: 125px;
+    min-width: 135px;
     padding: 10px 15px 10px 10px;
     border-radius: 0.5rem;
     display: flex;
@@ -52,14 +48,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px;
+    padding: 4px;
     border-radius: 0.5rem;
 }
 
 .featured__icon-img {
-    width: 31px;
-    height: 31px;
-    padding: 3px;
+    width: 32px;
+    height: 32px;
 }
 
 .featured__description {
@@ -80,10 +75,6 @@ body {
     max-width: none;
 }
 
-.featured__subtitle {
-    font-size: 0.8rem;
-    font-weight: 500;
-}
 .featured__arrow {
     position: absolute;
     right: 10px;

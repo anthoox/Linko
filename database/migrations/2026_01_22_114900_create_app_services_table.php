@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('url');
-            $table->string('icon')->nullable(); 
+            $table->string('icon')->nullable();
             $table->text('description')->nullable();
-            $table->string('image_path')->nullable(); 
-            $table->boolean('is_favorite')->default(false); 
-            $table->foreignId('category_id')->nullable()->constrained()->onDelete('cascade');
+            $table->string('image_path')->nullable();
+            $table->boolean('is_favorite')->default(false);
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

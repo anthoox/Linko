@@ -11,6 +11,5 @@
 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 
-@vite(['resources/css/app.css', 'resources/js/app.js'])
-@vite(['resources/css/style.css', 'resources/js/app.js'])
+@vite(['resources/css/app.css', 'resources/css/style.css', 'resources/js/app.js'])
 @fluxAppearance

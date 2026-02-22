@@ -3,15 +3,27 @@
     <div class="flex flex-col items-center w-full">
 
         <!-- LISTA DE CATEGORIAS -->
-        <div class="mb-8 w-full flex max-w-6xl text-center">
+        <div class="mb-8 w-full flex flex-col  max-w-6xl mt-4">
+            @if ($categories->count() > 0)
+            <div class="flex gap-2 items-end mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-7" viewBox="0 0 32 32">
+                    <path fill="#777777" d="M27 22.141V18a2 2 0 0 0-2-2h-8v-4h2a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2v4H7a2 2 0 0 0-2 2v4.142a4 4 0 1 0 2 0V18h8v4.142a4 4 0 1 0 2 0V18h8v4.141a4 4 0 1 0 2 0M13 4h6l.001 6H13ZM8 26a2 2 0 1 1-2-2a2 2 0 0 1 2 2m10 0a2 2 0 1 1-2-2a2.003 2.003 0 0 1 2 2m8 2a2 2 0 1 1 2-2a2 2 0 0 1-2 2" />
+                </svg>
+                <h3 class="dark:text-gray-300 text-gray-600  text-base font-medium">Categorías</h3>
+            </div>
+
+
+            @endif
+
             <ul class="flex justify-start gap-2 flex-wrap max-w-6xl">
                 @forelse($categories as $category)
-                <li wire:key="nav-cat-{{ $category->id }}" class="whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center transition-all duration-300 border-2 hover:text-violet-700 bg-gray-100 border-gray-100 hover:border-gray-300 dark:bg-dub-surface dark:border-dub-surface  dark:hover:text-linko-purple   dark:hover:border-dub-border ">
-                    <a href="#categoria-{{ $category->name }}">{{ $category->name }}</a>
+
+                <li wire:key="nav-cat-{{ $category->id }}" class="whitespace-nowrap rounded-radius px-4 py-2 text-sm dark:text-gray-300 text-gray-600  font-medium tracking-wide text-center transition-all duration-300 border-2 hover:text-violet-700 bg-gray-100 border-gray-100 hover:border-gray-300 dark:bg-dub-surface dark:border-dub-surface  dark:hover:text-linko-purple   dark:hover:border-dub-border">
+                    <a href="#{{ Str::slug($category->name) }}">{{ $category->name }}</a>
                 </li>
                 @empty
-                <li class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none border-2 bg-white dark:bg-dub-surface dark:border-dub dark:border-dub-surface">
-                    <span class="text-gray-400" href="#">No hay categorías aún</span>
+                <li class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center  pointer-events-none border-2 bg-white dark:bg-dub-surface dark:border-dub ">
+                    <span class="text-gray-600 " href="#">No hay categorías aún</span>
                 </li>
                 @endforelse
             </ul>
@@ -24,12 +36,12 @@
             <div class="flex justify-start h-full flex-1 flex-col gap-4 max-w-6xl">
                 <!-- TITULO FAVORITOS -->
                 @if ($favorites->count() > 0)
-                <div class="flex flex-col ds gap-2">
-                    <div class="flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="featured__logo-img" viewBox="0 0 24 24">
+                <div class="flex flex-col gap-2">
+                    <div class="flex items-end gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-7" viewBox="0 0 24 24">
                             <path fill="#eab308" d="M22 10.1c.1-.5-.3-1.1-.8-1.1l-5.7-.8L12.9 3c-.1-.2-.2-.3-.4-.4c-.5-.3-1.1-.1-1.4.4L8.6 8.2L2.9 9q-.45 0-.6.3c-.4.4-.4 1 0 1.4l4.1 4l-1 5.7c0 .2 0 .4.1.6c.3.5.9.7 1.4.4l5.1-2.7l5.1 2.7c.1.1.3.1.5.1h.2c.5-.1.9-.6.8-1.2l-1-5.7l4.1-4c.2-.1.3-.3.3-.5" />
                         </svg>
-                        <h3>Favoritos</h3>
+                        <h3 class="dark:text-gray-300 text-gray-600  text-base font-medium">Favoritos</h3>
                     </div>
                 </div>
 
@@ -38,7 +50,7 @@
 
                     @forelse($favorites as $fav)
 
-                    <a href="{{ $fav->url }}" target="_blank" wire:key="fav-item-{{ $fav->id }}" class="featured__item featured__item--first dark:hover:text-linko-purple hover:text-violet-700
+                    <a href="{{ $fav->url }}" target="_blank" wire:key="fav-item-{{ $fav->id }}" class="featured__item featured__item--first dark:hover:text-linko-purple hover:text-violet-700 dark:text-gray-300 text-gray-600  font-medium
                     bg-white border-2 border-gray-300 hover:border-violet-700 
                     dark:bg-dub-surface dark:border-dub-border dark:hover:border-linko-purple 
                     transition-colors duration-300 cursor-pointer">
@@ -46,16 +58,16 @@
                             <img class="featured__icon-img featured__icon-img--first" src="{{ $fav->image_path ? asset('storage/' . $fav->image_path) : asset('assets/img/app.svg') }}" alt="{{ $fav->name }}">
                         </div>
                         <div class="featured__description">
-                            <h3 class="featured__subtitle featured__subtitle--first transition-colors duration-300">{{ $fav->name }}</h3>
+                            <h3 class="text-sm transition-colors duration-300">{{ $fav->name }}</h3>
 
                         </div>
-                        <i class="featured__arrow las la-angle-right dark:hover:text-linko-purple"></i>
+                        <i class="featured__arrow las la-angle-right  dark:hover:text-linko-purple"></i>
                     </a>
 
                     @empty
                     <div class="flex justify-start gap-2 flex-wrap">
-                        <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none">
-                            <span class="text-gray-400">No hay favoritos aún</span>
+                        <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center  pointer-events-none">
+                            <span class="text-gray-600 ">No hay favoritos aún</span>
                         </div>
                     </div>
                     @endforelse
@@ -63,8 +75,8 @@
                 </div>
                 @else
                 <div class="flex justify-start gap-2 flex-wrap duration-300 transition-transform ">
-                    <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none border-2 bg-white dark:bg-dub-surface dark:border-dub dark:border-dub-surface border-gray-200">
-                        <span class="text-gray-400">No hay favoritos aún</span>
+                    <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center  pointer-events-none border-2 bg-white dark:bg-dub-surface dark:border-dub  border-gray-200 ">
+                        <span class="text-gray-600 ">No hay favoritos aún</span>
                     </div>
                 </div>
                 @endif
@@ -73,43 +85,43 @@
 
             <!-- RESTO DE APPS -->
             @forelse($categories as $category)
-            <div wire:key="cat-section-{{ $category->id }}" class="flex justify-start h-full w-full flex-1 flex-col gap-4 rounded-xl max-w-6xl">
-                <div class="flex items-center gap-2">
+            <div wire:key="cat-section-{{ $category->id }}" id="{{ Str::slug($category->name) }}" class="flex justify-start h-full w-full flex-1 flex-col gap-4 rounded-xl max-w-6xl">
+                <div class="flex items-end gap-2">
                     @if($category->icon)
 
 
-                    <img src="{{ $category->icon ? asset('storage/' . $category->icon) : asset('assets/img/app.svg') }}" class="size-8 object-cover rounded-md">
+                    <img src="{{ $category->icon ? asset('storage/' . $category->icon) : asset('assets/img/app.svg') }}" class="size-7 object-cover rounded-md">
                     @else
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-7" viewBox="0 0 24 24">
-                        <g fill="none">
-                            <path d="M3 3h7v7H3zm11 11h7v7h-7zM3 14h7v7H3zm18.5-7.5a4 4 0 1 1-8 0a4 4 0 0 1 8 0" />
-                            <path stroke="#666666" stroke-width="2" d="M3 3h7v7H3zm11 11h7v7h-7zM3 14h7v7H3zm18.5-7.5a4 4 0 1 1-8 0a4 4 0 0 1 8 0Z" />
-                        </g>
+                        <path fill="#666666" d="M8.75 13A2.25 2.25 0 0 1 11 15.25v3.5A2.25 2.25 0 0 1 8.75 21h-3.5A2.25 2.25 0 0 1 3 18.75v-3.5A2.25 2.25 0 0 1 5.25 13zm10-10A2.25 2.25 0 0 1 21 5.25v3.5A2.25 2.25 0 0 1 18.75 11h-3.5A2.25 2.25 0 0 1 13 8.75v-3.5A2.25 2.25 0 0 1 15.25 3z" class="duoicon-secondary-layer" opacity=".3" />
+                        <path fill="#777777" d="M8.75 3A2.25 2.25 0 0 1 11 5.25v3.5A2.25 2.25 0 0 1 8.75 11h-3.5A2.25 2.25 0 0 1 3 8.75v-3.5A2.25 2.25 0 0 1 5.25 3z" class="duoicon-primary-layer" />
+                        <path fill="#666666" d="M18.75 13A2.25 2.25 0 0 1 21 15.25v3.5A2.25 2.25 0 0 1 18.75 21h-3.5A2.25 2.25 0 0 1 13 18.75v-3.5A2.25 2.25 0 0 1 15.25 13z" class="duoicon-secondary-layer" opacity=".3" />
                     </svg>
+
                     @endif
-                    <h3 id="categoria-{{ $category->name }}">{{ $category->name }}</h3>
+                    <h3 class="text-md dark:text-gray-300 font-medium text-gray-600" id="categoria-{{ $category->name }}">{{ $category->name }}</h3>
                 </div>
                 <div class="flex gap-2 flex-wrap">
 
                     @forelse($category->apps as $app)
                     <div wire:key="app-{{ $app->id }}" class="featured__item bg-white border-2 border-gray-300 hover:border-linko-purple 
-            dark:bg-dub-surface dark:border-dub-border dark:hover:border-linko-purple 
-            transition-colors duration-300 dark:hover:text-linko-purple hover:text-violet-700 cursor-pointer">
+            dark:bg-dub-surface dark:border-dub-border dark:hover:border-linko-purple font-medium text-gray-600  
+            transition-colors duration-300 dark:hover:text-linko-purple hover:text-violet-700 cursor-pointer  dark:text-gray-300 ">
                         <a href="{{ $app->url }}" target="_blank" class="absolute inset-0 z-0"></a>
-                        <div class=" flex items-center gap-1">
-                            <div class="featured__icon">
+                        <div class=" flex items-center gap-1 ">
+                            <div class="featured__icon dark:bg-dub-border ">
                                 <img class="featured__icon-img bg-gray-100  dark:bg-dub-border rounded-md dark:border-dub-border" src="{{ $app->image_path ? asset('storage/' . $app->image_path) : asset('assets/img/app.svg') }}" alt="{{ $app->name }}">
                             </div>
 
-                            <div class="featured__description">
-                                <h3 class="featured__subtitle  transition-colors">{{ $app->name }}</h3>
+                            <div class="featured__description ">
+                                <h3 class="text-sm  transition-colors">{{ $app->name }}</h3>
 
                             </div>
                             <div>
                                 <button
                                     wire:click.stop="toggleFavorite({{ $app->id }})"
                                     wire:loading.attr="disabled"
-                                    class="absolute top-1 right-1 z-10 p-1 transition-transform active:scale-95"
+                                    class="absolute top-0 right-1 z-10 py-1 transition-transform active:scale-95"
                                     title="Marcar como favorito">
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24"
@@ -122,10 +134,11 @@
                                 <button
                                     wire:click.stop="editApp({{ $app->id }})" x-on:click.stop="modalIsOpen = true"
                                     wire:loading.attr="disabled"
-                                    class="absolute bottom-1 right-1 z-10 p-1 transition-transform active:scale-95"
+                                    class="absolute bottom-0 right-1 z-10 py-1 transition-transform active:scale-95"
                                     title="Editar App">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-4">
-                                        <path fill="none" stroke="#4a5565" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14 6l2.293-2.293a1 1 0 0 1 1.414 0l2.586 2.586a1 1 0 0 1 0 1.414L18 10m-4-4l-9.707 9.707a1 1 0 0 0-.293.707V19a1 1 0 0 0 1 1h2.586a1 1 0 0 0 .707-.293L18 10m-4-4l4 4" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="size-4 transition-colors duration-150  text-gray-300 dark:text-gray-600">
+                                        <path fill="#666666" d="M4.42 20.579a1 1 0 0 1-.737-.326a.988.988 0 0 1-.263-.764l.245-2.694L14.983 5.481l3.537 3.536L7.205 20.33l-2.694.245a.95.95 0 0 1-.091.004ZM19.226 8.31L15.69 4.774l2.121-2.121a1 1 0 0 1 1.415 0l2.121 2.121a1 1 0 0 1 0 1.415l-2.12 2.12l-.001.001Z" />
                                     </svg>
                                 </button>
                             </div>
@@ -134,16 +147,16 @@
 
                     </div>
                     @empty
-                    <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none border-2 bg-white dark:bg-dub-surface dark:border-dub dark:border-dub-surface">
-                        <span class="text-gray-400">Categoría vacía</span>
+                    <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center  pointer-events-none border-2 bg-white dark:bg-dub-surface dark:border-dub ">
+                        <span class="text-gray-600 ">Categoría vacía</span>
                     </div>
                     @endforelse
                 </div>
             </div>
             @empty
             <div class="flex justify-start gap-2 flex-wrap">
-                <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center nav__item pointer-events-none border-2 bg-white dark:bg-dub-surface dark:border-dub dark:border-dub-surface">
-                    <span class="text-gray-400">No hay aplicaciones aún</span>
+                <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center  pointer-events-none border-2 bg-white dark:bg-dub-surface dark:border-dub ">
+                    <span class="text-gray-600 ">No hay aplicaciones aún</span>
                 </div>
             </div>
             @endforelse
@@ -156,7 +169,7 @@
 
                 <div class="absolute bottom-10 right-6 lg:right-0 pointer-events-auto">
                     <div x-data="{ modalIsOpen: false }" x-on:close-modal-success.window="modalIsOpen = false" x-on:open-modal.window="modalIsOpen = true">
-                        <button x-on:click="modalIsOpen = true" type="button" class="whitespace-nowrap border rounded-full border-primary dark:border-primary-dark bg-primary px-4 py-4 text-center text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0 dark:bg-primary-dark dark:text-on-primary-dark dark:focus-visible:outline-primary-dark">
+                        <button wire:click="resetFields" x-on:click="modalIsOpen = true" type="button" class="whitespace-nowrap border rounded-full border-primary dark:border-primary-dark bg-primary px-4 py-4 text-center text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0 dark:bg-primary-dark dark:text-on-primary-dark dark:focus-visible:outline-primary-dark">
                             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-6 fill-on-primary dark:fill-on-primary-dark" fill="currentColor">
                                 <path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clip-rule="evenodd" />
                             </svg>

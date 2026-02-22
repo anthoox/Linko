@@ -24,15 +24,6 @@
 
             <flux:spacer />
 
-            <flux:navbar class="-mb-px max-lg:hidden">
-                <flux:navbar.item icon="folder-git-2" href="https://github.com/anthoox/Linko" target="_blank">
-                    {{ __('GitHub') }}
-                </flux:navbar.item>
-                <flux:navbar.item icon="computer-desktop" href="https://anthoox.es/" target="_blank">
-                    {{ __('Portfolio') }}
-                </flux:navbar.item>
-            </flux:navbar>
-
 
             <flux:navbar class="me-1.5 space-x-0.5 rtl:space-x-reverse py-0!">
                 <x-desktop-user-menu />
@@ -59,14 +50,7 @@
 
         <flux:spacer />
 
-        <flux:sidebar.nav>
-            <flux:sidebar.item icon="folder-git-2" href="https://github.com/anthoox/Linko" target="_blank">
-                {{ __('GitHub') }}
-            </flux:sidebar.item>
-            <flux:sidebar.item icon="computer-desktop" href="https://anthoox.es/" target="_blank">
-                {{ __('Portfolio') }}
-            </flux:sidebar.item>
-        </flux:sidebar.nav>
+
     </flux:sidebar>
 
     {{ $slot }}

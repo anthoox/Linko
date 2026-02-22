@@ -16,7 +16,7 @@ class Index extends Component
     public $name, $url, $category_id, $image, $editingAppId, $currentImage;
 
     protected $rules = [
-        'name' => 'required|min:3|max:13',
+        'name' => 'required|min:3|max:15',
         'url' => 'required|url',
         'category_id' => 'nullable|exists:categories,id',
         'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:1024',
@@ -48,11 +48,11 @@ class Index extends Component
         try {
             $userPath = 'users/' . Auth::id() . '/apps';
 
+    
             if (empty($this->category_id)) {
-                
                 $defaultCategory = Category::firstOrCreate(
-                    ['user_id' => Auth::id(), 'name' => 'Sin categoría'],
-                    ['icon' => null] 
+                    ['user_id' => Auth::id(), 'name' => 'General'], 
+                    ['icon' => null]
                 );
                 $finalCategoryId = $defaultCategory->id;
             } else {
@@ -60,10 +60,20 @@ class Index extends Component
             }
 
             if ($this->editingAppId) {
-                
                 $app = AppService::where('user_id', Auth::id())->findOrFail($this->editingAppId);
 
-                $path = $this->image ? $this->image->store($userPath, 'public') : null;
+    
+                if ($this->image) {
+
+                    if ($app->image_path) {
+                        Storage::disk('public')->delete($app->image_path);
+                    }
+
+                    $path = $this->image->store($userPath, 'public');
+                } else {
+
+                    $path = $app->image_path;
+                }
 
                 $app->update([
                     'name' => $this->name,
@@ -72,7 +82,7 @@ class Index extends Component
                     'image_path' => $path
                 ]);
             } else {
-                
+
                 $path = $this->image ? $this->image->store($userPath, 'public') : null;
 
                 AppService::create([
@@ -80,7 +90,7 @@ class Index extends Component
                     'name' => $this->name,
                     'url' => $this->url,
                     'image_path' => $path,
-                    'category_id' => $finalCategoryId, 
+                    'category_id' => $finalCategoryId,
                     'is_favorite' => false,
                 ]);
             }
@@ -116,8 +126,18 @@ class Index extends Component
 
     public function render()
     {
+        $categories = Category::where('user_id', Auth::id())
+            ->with('apps')
+            ->get()
+            ->sortBy(function ($category) {
+                if ($category->name === 'General') {
+                    return 999999;
+                }
+                return -$category->id; 
+            });
+
         return view('livewire.dashboard.index', [
-            'categories' => Category::where('user_id', Auth::id())->with('apps')->get(),
+            'categories' => $categories,
             'favorites' => AppService::where('user_id', Auth::id())->where('is_favorite', true)->get()
         ]);
     }

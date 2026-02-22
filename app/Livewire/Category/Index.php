@@ -3,12 +3,12 @@
 namespace App\Livewire\Category;
 
 use App\Models\Category;
+use App\Models\AppService; 
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
-
 class Index extends Component
 {
     use WithPagination;
@@ -101,16 +101,27 @@ class Index extends Component
                 Storage::disk('public')->delete($category->icon);
             }
 
+            $appsEncontradas = AppService::where('category_id', $category->id)->get();
+
+            foreach ($appsEncontradas as $unaApp) {
+                if ($unaApp->image_path) {
+                    Storage::disk('public')->delete($unaApp->image_path);
+                }
+
+                $unaApp->delete();
+            }
+
             $category->delete();
 
             if ($this->editingCategoryId == $id) {
                 $this->resetFields();
             }
-            
+
             $this->dispatch('category-created');
-            session()->flash('success', 'Categoría eliminada correctamente.');
+            session()->flash('success', 'Categoría y sus apps eliminadas correctamente.');
         } catch (\Exception $e) {
-            session()->flash('error', 'No se pudo eliminar la categoría.');
+
+            session()->flash('error', 'Error técnico: ' . $e->getMessage());
         }
     }
 
