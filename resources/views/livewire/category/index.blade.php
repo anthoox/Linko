@@ -49,7 +49,7 @@
                         @if ($icon || $currentIcon)
                         <div class="mt-2 flex items-center gap-4 rounded-radius border border-outline/50 bg-surface-alt/30 p-3 dark:border-outline-dark/50 dark:bg-surface-dark-alt/30">
                             <div class="relative size-14 shrink-0 overflow-hidden rounded-md border-2 border-white shadow-sm dark:border-dub-border">
-                                <img src="{{ $icon ? $icon->temporaryUrl() : asset('storage/' . $currentIcon) }}" class="h-full w-full object-cover">
+                                <img src="{{ $icon ? $icon->temporaryUrl() : asset('assets/img/app.svg') }}" class="h-full w-full object-cover">
                             </div>
                             <div class="flex flex-col">
                                 <p class="text-[10px] font-bold uppercase tracking-wider text-linko-purple">
@@ -123,7 +123,11 @@
                             @if($category->icon)
                             <img class="size-10 rounded-full object-cover" src="{{ asset('storage/' . $category->icon) }}" alt="category icon" />
                             @else
-                            <div class="size-10 rounded-full bg-gray-200 flex items-center justify-center text-xs">N/A</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-10 rounded-full object-cover" viewBox="0 0 24 24">
+                                <path fill="#30363d" d="M8.75 13A2.25 2.25 0 0 1 11 15.25v3.5A2.25 2.25 0 0 1 8.75 21h-3.5A2.25 2.25 0 0 1 3 18.75v-3.5A2.25 2.25 0 0 1 5.25 13zm10-10A2.25 2.25 0 0 1 21 5.25v3.5A2.25 2.25 0 0 1 18.75 11h-3.5A2.25 2.25 0 0 1 13 8.75v-3.5A2.25 2.25 0 0 1 15.25 3z" class="duoicon-secondary-layer" opacity=".3" />
+                                <path fill="#30363d" d="M8.75 3A2.25 2.25 0 0 1 11 5.25v3.5A2.25 2.25 0 0 1 8.75 11h-3.5A2.25 2.25 0 0 1 3 8.75v-3.5A2.25 2.25 0 0 1 5.25 3z" class="duoicon-primary-layer" />
+                                <path fill="#30363d" d="M18.75 13A2.25 2.25 0 0 1 21 15.25v3.5A2.25 2.25 0 0 1 18.75 21h-3.5A2.25 2.25 0 0 1 13 18.75v-3.5A2.25 2.25 0 0 1 15.25 13z" class="duoicon-secondary-layer" opacity=".3" />
+                            </svg>
                             @endif
                         </div>
                     </td>

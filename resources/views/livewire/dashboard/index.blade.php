@@ -5,11 +5,11 @@
         <!-- LISTA DE CATEGORIAS -->
         <div class="mb-8 w-full flex flex-col  max-w-6xl mt-4">
             @if ($categories->count() > 0)
-            <div class="flex gap-2 items-end mb-4">
+            <div class="flex gap-2 items-center mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" class="size-7" viewBox="0 0 32 32">
-                    <path fill="#777777" d="M27 22.141V18a2 2 0 0 0-2-2h-8v-4h2a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2v4H7a2 2 0 0 0-2 2v4.142a4 4 0 1 0 2 0V18h8v4.142a4 4 0 1 0 2 0V18h8v4.141a4 4 0 1 0 2 0M13 4h6l.001 6H13ZM8 26a2 2 0 1 1-2-2a2 2 0 0 1 2 2m10 0a2 2 0 1 1-2-2a2.003 2.003 0 0 1 2 2m8 2a2 2 0 1 1 2-2a2 2 0 0 1-2 2" />
+                    <path fill="#30363d" d="M27 22.141V18a2 2 0 0 0-2-2h-8v-4h2a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2v4H7a2 2 0 0 0-2 2v4.142a4 4 0 1 0 2 0V18h8v4.142a4 4 0 1 0 2 0V18h8v4.141a4 4 0 1 0 2 0M13 4h6l.001 6H13ZM8 26a2 2 0 1 1-2-2a2 2 0 0 1 2 2m10 0a2 2 0 1 1-2-2a2.003 2.003 0 0 1 2 2m8 2a2 2 0 1 1 2-2a2 2 0 0 1-2 2" />
                 </svg>
-                <h3 class="dark:text-gray-300 text-gray-600  text-base font-medium">Categorías</h3>
+                <h3 class="dark:text-gray-300 text-gray-600 m-o text-base font-medium">Categorías</h3>
             </div>
 
 
@@ -37,7 +37,7 @@
                 <!-- TITULO FAVORITOS -->
                 @if ($favorites->count() > 0)
                 <div class="flex flex-col gap-2">
-                    <div class="flex items-end gap-2">
+                    <div class="flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="size-7" viewBox="0 0 24 24">
                             <path fill="#eab308" d="M22 10.1c.1-.5-.3-1.1-.8-1.1l-5.7-.8L12.9 3c-.1-.2-.2-.3-.4-.4c-.5-.3-1.1-.1-1.4.4L8.6 8.2L2.9 9q-.45 0-.6.3c-.4.4-.4 1 0 1.4l4.1 4l-1 5.7c0 .2 0 .4.1.6c.3.5.9.7 1.4.4l5.1-2.7l5.1 2.7c.1.1.3.1.5.1h.2c.5-.1.9-.6.8-1.2l-1-5.7l4.1-4c.2-.1.3-.3.3-.5" />
                         </svg>
@@ -86,16 +86,16 @@
             <!-- RESTO DE APPS -->
             @forelse($categories as $category)
             <div wire:key="cat-section-{{ $category->id }}" id="{{ Str::slug($category->name) }}" class="flex justify-start h-full w-full flex-1 flex-col gap-4 rounded-xl max-w-6xl">
-                <div class="flex items-end gap-2">
+                <div class="flex items-center gap-2">
                     @if($category->icon)
 
 
                     <img src="{{ $category->icon ? asset('storage/' . $category->icon) : asset('assets/img/app.svg') }}" class="size-7 object-cover rounded-md">
                     @else
                     <svg xmlns="http://www.w3.org/2000/svg" class="size-7" viewBox="0 0 24 24">
-                        <path fill="#666666" d="M8.75 13A2.25 2.25 0 0 1 11 15.25v3.5A2.25 2.25 0 0 1 8.75 21h-3.5A2.25 2.25 0 0 1 3 18.75v-3.5A2.25 2.25 0 0 1 5.25 13zm10-10A2.25 2.25 0 0 1 21 5.25v3.5A2.25 2.25 0 0 1 18.75 11h-3.5A2.25 2.25 0 0 1 13 8.75v-3.5A2.25 2.25 0 0 1 15.25 3z" class="duoicon-secondary-layer" opacity=".3" />
-                        <path fill="#777777" d="M8.75 3A2.25 2.25 0 0 1 11 5.25v3.5A2.25 2.25 0 0 1 8.75 11h-3.5A2.25 2.25 0 0 1 3 8.75v-3.5A2.25 2.25 0 0 1 5.25 3z" class="duoicon-primary-layer" />
-                        <path fill="#666666" d="M18.75 13A2.25 2.25 0 0 1 21 15.25v3.5A2.25 2.25 0 0 1 18.75 21h-3.5A2.25 2.25 0 0 1 13 18.75v-3.5A2.25 2.25 0 0 1 15.25 13z" class="duoicon-secondary-layer" opacity=".3" />
+                        <path fill="#30363d" d="M8.75 13A2.25 2.25 0 0 1 11 15.25v3.5A2.25 2.25 0 0 1 8.75 21h-3.5A2.25 2.25 0 0 1 3 18.75v-3.5A2.25 2.25 0 0 1 5.25 13zm10-10A2.25 2.25 0 0 1 21 5.25v3.5A2.25 2.25 0 0 1 18.75 11h-3.5A2.25 2.25 0 0 1 13 8.75v-3.5A2.25 2.25 0 0 1 15.25 3z" class="duoicon-secondary-layer" opacity=".3" />
+                        <path fill="#30363d" d="M8.75 3A2.25 2.25 0 0 1 11 5.25v3.5A2.25 2.25 0 0 1 8.75 11h-3.5A2.25 2.25 0 0 1 3 8.75v-3.5A2.25 2.25 0 0 1 5.25 3z" class="duoicon-primary-layer" />
+                        <path fill="#30363d" d="M18.75 13A2.25 2.25 0 0 1 21 15.25v3.5A2.25 2.25 0 0 1 18.75 21h-3.5A2.25 2.25 0 0 1 13 18.75v-3.5A2.25 2.25 0 0 1 15.25 13z" class="duoicon-secondary-layer" opacity=".3" />
                     </svg>
 
                     @endif
@@ -108,7 +108,7 @@
             dark:bg-dub-surface dark:border-dub-border dark:hover:border-linko-purple font-medium text-gray-600  
             transition-colors duration-300 dark:hover:text-linko-purple hover:text-violet-700 cursor-pointer  dark:text-gray-300 ">
                         <a href="{{ $app->url }}" target="_blank" class="absolute inset-0 z-0"></a>
-                        <div class=" flex items-center gap-1 ">
+                        <div class=" flex items-center gap-2 ">
                             <div class="featured__icon dark:bg-dub-border ">
                                 <img class="featured__icon-img bg-gray-100  dark:bg-dub-border rounded-md dark:border-dub-border" src="{{ $app->image_path ? asset('storage/' . $app->image_path) : asset('assets/img/app.svg') }}" alt="{{ $app->name }}">
                             </div>
@@ -131,18 +131,17 @@
                                     </svg>
                                 </button>
 
-                                <button
+                                       <button
                                     wire:click.stop="editApp({{ $app->id }})" x-on:click.stop="modalIsOpen = true"
                                     wire:loading.attr="disabled"
                                     class="absolute bottom-0 right-1 z-10 py-1 transition-transform active:scale-95"
                                     title="Editar App">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                         class="size-4 transition-colors duration-150  text-gray-300 dark:text-gray-600">
-                                        <path fill="#666666" d="M4.42 20.579a1 1 0 0 1-.737-.326a.988.988 0 0 1-.263-.764l.245-2.694L14.983 5.481l3.537 3.536L7.205 20.33l-2.694.245a.95.95 0 0 1-.091.004ZM19.226 8.31L15.69 4.774l2.121-2.121a1 1 0 0 1 1.415 0l2.121 2.121a1 1 0 0 1 0 1.415l-2.12 2.12l-.001.001Z" />
+                                        <path  d="M4.42 20.579a1 1 0 0 1-.737-.326a.988.988 0 0 1-.263-.764l.245-2.694L14.983 5.481l3.537 3.536L7.205 20.33l-2.694.245a.95.95 0 0 1-.091.004ZM19.226 8.31L15.69 4.774l2.121-2.121a1 1 0 0 1 1.415 0l2.121 2.121a1 1 0 0 1 0 1.415l-2.12 2.12l-.001.001Z" />
                                     </svg>
                                 </button>
                             </div>
-
                         </div>
 
                     </div>

@@ -51,7 +51,7 @@ class Index extends Component
         $this->validate();
 
         try {
-            // Definimos la ruta dinámica basada en el usuario
+            
             $userPath = 'users/' . Auth::id() . '/category-icons';
 
             if ($this->editingCategoryId) {
