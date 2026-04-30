@@ -15,6 +15,9 @@ class Index extends Component
 
     public $name, $url, $category_id, $image, $editingAppId, $currentImage;
 
+    public $appToDeleteId = null;
+    public $appToDeleteName = null;
+
     protected $rules = [
         'name' => 'required|min:3|max:15',
         'url' => 'required|url',
@@ -30,6 +33,7 @@ class Index extends Component
     public function editApp($id)
     {
         $this->resetFields();
+
         $app = AppService::where('user_id', Auth::id())->findOrFail($id);
 
         $this->editingAppId = $app->id;
@@ -48,12 +52,12 @@ class Index extends Component
         try {
             $userPath = 'users/' . Auth::id() . '/apps';
 
-    
             if (empty($this->category_id)) {
                 $defaultCategory = Category::firstOrCreate(
-                    ['user_id' => Auth::id(), 'name' => 'General'], 
+                    ['user_id' => Auth::id(), 'name' => 'General'],
                     ['icon' => null]
                 );
+
                 $finalCategoryId = $defaultCategory->id;
             } else {
                 $finalCategoryId = $this->category_id;
@@ -62,16 +66,13 @@ class Index extends Component
             if ($this->editingAppId) {
                 $app = AppService::where('user_id', Auth::id())->findOrFail($this->editingAppId);
 
-    
                 if ($this->image) {
-
                     if ($app->image_path) {
                         Storage::disk('public')->delete($app->image_path);
                     }
 
                     $path = $this->image->store($userPath, 'public');
                 } else {
-
                     $path = $app->image_path;
                 }
 
@@ -79,10 +80,9 @@ class Index extends Component
                     'name' => $this->name,
                     'url' => $this->url,
                     'category_id' => $finalCategoryId,
-                    'image_path' => $path
+                    'image_path' => $path,
                 ]);
             } else {
-
                 $path = $this->image ? $this->image->store($userPath, 'public') : null;
 
                 AppService::create([
@@ -95,27 +95,78 @@ class Index extends Component
                 ]);
             }
 
+            $wasEditing = $this->editingAppId !== null;
+
             $this->resetFields();
+
             $this->dispatch('close-modal-success');
+
+            $this->dispatch(
+                'show-toast',
+                type: 'success',
+                message: $wasEditing ? 'Servicio actualizado correctamente.' : 'Servicio creado correctamente.'
+            );
         } catch (\Exception $e) {
-            session()->flash('error', 'Error: ' . $e->getMessage());
+            $this->dispatch(
+                'show-toast',
+                type: 'error',
+                message: 'Error: ' . $e->getMessage()
+            );
         }
+    }
+
+    public function confirmDeleteApp()
+    {
+        if (!$this->editingAppId) {
+            return;
+        }
+
+        $app = AppService::where('user_id', Auth::id())->findOrFail($this->editingAppId);
+
+        $this->appToDeleteId = $app->id;
+        $this->appToDeleteName = $app->name;
+
+        $this->dispatch('open-delete-app-modal');
     }
 
     public function deleteApp()
     {
-        if (!$this->editingAppId) return;
-
-        $app = AppService::where('user_id', Auth::id())->findOrFail($this->editingAppId);
-
-        if ($app->image_path) {
-            Storage::disk('public')->delete($app->image_path);
+        if (!$this->appToDeleteId) {
+            return;
         }
 
-        $app->delete();
+        try {
+            $app = AppService::where('user_id', Auth::id())->findOrFail($this->appToDeleteId);
 
-        $this->resetFields();
-        $this->dispatch('close-modal-success');
+            if ($app->image_path) {
+                Storage::disk('public')->delete($app->image_path);
+            }
+
+            $app->delete();
+
+            $this->resetFields();
+            $this->resetDeleteAppFields();
+
+            $this->dispatch('close-delete-app-modal');
+            $this->dispatch('close-modal-success');
+
+            $this->dispatch(
+                'show-toast',
+                type: 'success',
+                message: 'Servicio eliminado correctamente.'
+            );
+        } catch (\Exception $e) {
+            $this->dispatch(
+                'show-toast',
+                type: 'error',
+                message: 'Error al eliminar el servicio: ' . $e->getMessage()
+            );
+        }
+    }
+
+    public function resetDeleteAppFields()
+    {
+        $this->reset(['appToDeleteId', 'appToDeleteName']);
     }
 
     public function resetFields()
@@ -133,12 +184,15 @@ class Index extends Component
                 if ($category->name === 'General') {
                     return 999999;
                 }
-                return -$category->id; 
+
+                return -$category->id;
             });
 
         return view('livewire.dashboard.index', [
             'categories' => $categories,
-            'favorites' => AppService::where('user_id', Auth::id())->where('is_favorite', true)->get()
+            'favorites' => AppService::where('user_id', Auth::id())
+                ->where('is_favorite', true)
+                ->get(),
         ]);
     }
 
@@ -147,7 +201,7 @@ class Index extends Component
         $app = AppService::where('user_id', Auth::id())->findOrFail($appId);
 
         $app->update([
-            'is_favorite' => !$app->is_favorite
+            'is_favorite' => !$app->is_favorite,
         ]);
     }
 }
