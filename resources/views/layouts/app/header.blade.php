@@ -53,10 +53,14 @@ $headerCategories = auth()->check()
             @if (request()->routeIs('dashboard') && $headerCategories->isNotEmpty())
                 <div class="hidden lg:flex items-center gap-3 overflow-x-auto pb-1">
                     <div class="flex items-center gap-2">
+                        <a href="#"
+                            class="whitespace-nowrap rounded-radius px-4 py-2 text-sm dark:text-gray-300 text-gray-600  font-medium tracking-wide text-center transition-all duration-300 border-2 hover:text-violet-700 bg-gray-100 border-gray-100 hover:border-gray-300 dark:bg-dub-surface dark:border-dub-surface  dark:hover:text-linko-purple   dark:hover:border-dub-border">
+                            Todo
+                        </a>
                         @foreach ($headerCategories as $category)
                             <a
                                 href="{{ route('dashboard') }}#{{ \Illuminate\Support\Str::slug($category->name) }}"
-                                class="shrink-0 rounded-full border border-gray-200 bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-600 transition-colors duration-200 hover:border-linko-purple hover:text-violet-700 dark:border-dub-border dark:bg-dub-surface dark:text-gray-300 dark:hover:border-linko-purple dark:hover:text-linko-purple"
+                                class="whitespace-nowrap rounded-radius px-4 py-2 text-sm dark:text-gray-300 text-gray-600  font-medium tracking-wide text-center transition-all duration-300 border-2 hover:text-violet-700 bg-gray-100 border-gray-100 hover:border-gray-300 dark:bg-dub-surface dark:border-dub-surface  dark:hover:text-linko-purple   dark:hover:border-dub-border"
                             >
                                 {{ $category->name }}
                             </a>
