@@ -13,32 +13,7 @@
 
     <div class="flex flex-col items-center w-full">
 
-        <!-- LISTA DE CATEGORIAS -->
-        <div class="mb-8 w-full flex flex-col max-w-6xl mt-4 lg:hidden">
-            @if ($categories->count() > 0)
-            <div class="flex gap-2 items-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="size-7" viewBox="0 0 32 32">
-                    <path fill="#30363d" d="M27 22.141V18a2 2 0 0 0-2-2h-8v-4h2a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2v4H7a2 2 0 0 0-2 2v4.142a4 4 0 1 0 2 0V18h8v4.142a4 4 0 1 0 2 0V18h8v4.141a4 4 0 1 0 2 0M13 4h6l.001 6H13ZM8 26a2 2 0 1 1-2-2a2 2 0 0 1 2 2m10 0a2 2 0 1 1-2-2a2.003 2.003 0 0 1 2 2m8 2a2 2 0 1 1 2-2a2 2 0 0 1-2 2" />
-                </svg>
-                <h3 class="dark:text-gray-300 text-gray-600 m-o text-base font-medium">Categorías</h3>
-            </div>
 
-
-            @endif
-
-            <ul class="flex justify-start gap-2 flex-wrap max-w-6xl">
-                @forelse($categories as $category)
-
-                <li wire:key="nav-cat-{{ $category->id }}" class="whitespace-nowrap rounded-radius px-4 py-2 text-sm dark:text-gray-300 text-gray-600  font-medium tracking-wide text-center transition-all duration-300 border-2 hover:text-violet-700 bg-gray-100 border-gray-100 hover:border-gray-300 dark:bg-dub-surface dark:border-dub-surface  dark:hover:text-linko-purple   dark:hover:border-dub-border">
-                    <a href="#{{ Str::slug($category->name) }}">{{ $category->name }}</a>
-                </li>
-                @empty
-                <li class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center  pointer-events-none border-2 bg-white dark:bg-dub-surface dark:border-dub ">
-                    <span class="text-gray-600 " href="#">No hay categorías aún</span>
-                </li>
-                @endforelse
-            </ul>
-        </div>
 
         <!-- APPS -->
         <div class="flex flex-col gap-7 mb-8 w-full max-w-6xl text-center">
