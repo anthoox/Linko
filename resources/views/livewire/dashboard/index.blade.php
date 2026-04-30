@@ -3,7 +3,7 @@
     <div class="flex flex-col items-center w-full">
 
         <!-- LISTA DE CATEGORIAS -->
-        <div class="mb-8 w-full flex flex-col  max-w-6xl mt-4">
+        <div class="mb-8 w-full flex flex-col max-w-6xl mt-4 lg:hidden">
             @if ($categories->count() > 0)
             <div class="flex gap-2 items-center mb-4">
                 <svg xmlns="http://www.w3.org/2000/svg" class="size-7" viewBox="0 0 32 32">
@@ -85,7 +85,7 @@
 
             <!-- RESTO DE APPS -->
             @forelse($categories as $category)
-            <div wire:key="cat-section-{{ $category->id }}" id="{{ Str::slug($category->name) }}" class="flex justify-start h-full w-full flex-1 flex-col gap-4 rounded-xl max-w-6xl">
+            <div wire:key="cat-section-{{ $category->id }}" id="{{ Str::slug($category->name) }}" class="scroll-mt-32 flex justify-start h-full w-full flex-1 flex-col gap-4 rounded-xl max-w-6xl">
                 <div class="flex items-center gap-2">
                     @if($category->icon)
 
