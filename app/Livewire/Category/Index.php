@@ -18,6 +18,10 @@ class Index extends Component
     public $editingCategoryId = null;
     public $currentIcon = null;
 
+    public $categoryToDeleteId = null;
+    public $categoryToDeleteName = null;
+
+
     protected function rules()
     {
         return [
@@ -92,43 +96,98 @@ class Index extends Component
         }
     }
 
-    public function deleteCategory($id)
+    public function deleteCategory()
     {
-        $category = Category::where('user_id', Auth::id())->findOrFail($id);
+        if (!$this->categoryToDeleteId) {
+            return;
+        }
+
+        $category = Category::where('user_id', Auth::id())
+            ->findOrFail($this->categoryToDeleteId);
 
         try {
+            if (strtolower($category->name) === 'general') {
+                $tieneServicios = AppService::where('user_id', Auth::id())
+                    ->where('category_id', $category->id)
+                    ->exists();
+
+                if ($tieneServicios) {
+                    $this->dispatch(
+                        'show-toast',
+                        type: 'error',
+                        message: 'No puedes eliminar la categoría General porque contiene servicios.'
+                    );
+
+                    $this->resetDeleteFields();
+                    $this->dispatch('close-delete-modal');
+
+                    return;
+                }
+            }
+
+            $generalCategory = Category::firstOrCreate(
+                [
+                    'user_id' => Auth::id(),
+                    'name' => 'General',
+                ],
+                [
+                    'icon' => null,
+                ]
+            );
+
+            if ($category->id !== $generalCategory->id) {
+                AppService::where('user_id', Auth::id())
+                    ->where('category_id', $category->id)
+                    ->update([
+                        'category_id' => $generalCategory->id,
+                    ]);
+            }
+
             if ($category->icon) {
                 Storage::disk('public')->delete($category->icon);
             }
 
-            $appsEncontradas = AppService::where('category_id', $category->id)->get();
-
-            foreach ($appsEncontradas as $unaApp) {
-                if ($unaApp->image_path) {
-                    Storage::disk('public')->delete($unaApp->image_path);
-                }
-
-                $unaApp->delete();
-            }
-
             $category->delete();
 
-            if ($this->editingCategoryId == $id) {
+            if ($this->editingCategoryId == $category->id) {
                 $this->resetFields();
             }
 
-            $this->dispatch('category-created');
-            session()->flash('success', 'Categoría y sus apps eliminadas correctamente.');
-        } catch (\Exception $e) {
+            $this->resetDeleteFields();
 
-            session()->flash('error', 'Error técnico: ' . $e->getMessage());
+            $this->dispatch('close-delete-modal');
+
+            $this->dispatch(
+                'show-toast',
+                type: 'success',
+                message: 'Categoría eliminada correctamente.'
+            );
+        } catch (\Exception $e) {
+            $this->dispatch(
+                'show-toast',
+                type: 'error',
+                message: 'Error técnico: ' . $e->getMessage()
+            );
         }
     }
-
+    public function resetDeleteFields()
+    {
+        $this->reset(['categoryToDeleteId', 'categoryToDeleteName']);
+    }
     public function render()
     {
         return view('livewire.category.index', [
             'categories' => Category::where('user_id', Auth::id())->latest()->simplePaginate(5)
         ]);
+    }
+
+    public function confirmDeleteCategory($id)
+    {
+        $category = Category::where('user_id', Auth::id())->findOrFail($id);
+
+        $this->categoryToDeleteId = $category->id;
+        $this->categoryToDeleteName = $category->name;
+
+        $this->dispatch('open-delete-modal');
     }
 }
