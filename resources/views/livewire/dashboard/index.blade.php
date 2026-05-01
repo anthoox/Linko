@@ -82,13 +82,13 @@
                         </span>
                     @else
                         <svg xmlns="http://www.w3.org/2000/svg" class="size-7" viewBox="0 0 24 24">
-                            <path fill="#30363d"
+                            <path fill="#64748B"
                                 d="M8.75 13A2.25 2.25 0 0 1 11 15.25v3.5A2.25 2.25 0 0 1 8.75 21h-3.5A2.25 2.25 0 0 1 3 18.75v-3.5A2.25 2.25 0 0 1 5.25 13zm10-10A2.25 2.25 0 0 1 21 5.25v3.5A2.25 2.25 0 0 1 18.75 11h-3.5A2.25 2.25 0 0 1 13 8.75v-3.5A2.25 2.25 0 0 1 15.25 3z"
                                 class="duoicon-secondary-layer" opacity=".3" />
-                            <path fill="#30363d"
+                            <path fill="#64748B"
                                 d="M8.75 3A2.25 2.25 0 0 1 11 5.25v3.5A2.25 2.25 0 0 1 8.75 11h-3.5A2.25 2.25 0 0 1 3 8.75v-3.5A2.25 2.25 0 0 1 5.25 3z"
                                 class="duoicon-primary-layer" />
-                            <path fill="#30363d"
+                            <path fill="#64748B"
                                 d="M18.75 13A2.25 2.25 0 0 1 21 15.25v3.5A2.25 2.25 0 0 1 18.75 21h-3.5A2.25 2.25 0 0 1 13 18.75v-3.5A2.25 2.25 0 0 1 15.25 13z"
                                 class="duoicon-secondary-layer" opacity=".3" />
                         </svg>
@@ -170,7 +170,7 @@
 
                         <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen" x-on:keydown.esc.window="modalIsOpen = false" x-on:click.self="modalIsOpen = false" class="fixed inset-0 z-30 flex w-full items-center justify-center bg-black/20 p-4 pb-8 backdrop-blur-md lg:p-8" role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle">
 
-                            <form wire:submit.prevent="saveApp" x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="scale-0" x-transition:enter-end="scale-100" class="flex w-full max-w-lg flex-col gap-4 overflow-hidden rounded-radius border border-outline bg-surface text-on-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark shadow-2xl mx-4 sm:mx-0">
+                            <form wire:submit.prevent="saveApp" x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="scale-0" x-transition:enter-end="scale-100" class="flex w-full max-w-lg flex-col gap-4 overflow-hidden rounded-radius border border-outline bg-surface text-on-surface dark:border-outline-dark dark:bg-dub -alt dark:text-on-surface-dark shadow-2xl mx-4 sm:mx-0">
 
                                 <div class="flex items-center justify-between border-b border-outline bg-surface-alt/60 p-4 dark:border-outline-dark dark:bg-surface-dark/20">
                                     <h3 id="defaultModalTitle" class="font-semibold tracking-wide text-on-surface-strong dark:text-on-surface-dark-strong">{{ $editingAppId ? 'Editar Aplicación' : 'Nueva Aplicación' }}</h3>
@@ -260,7 +260,7 @@
             class="fixed inset-0 z-[9998] flex items-center justify-center bg-black/20 p-4 backdrop-blur-md" role="dialog"
             aria-modal="true">
             <div x-show="deleteAppModalIsOpen" x-transition x-on:click.outside="deleteAppModalIsOpen = false"
-                class="w-full max-w-md rounded-radius border border-outline bg-surface p-6 shadow-2xl dark:border-outline-dark dark:bg-surface-dark-alt">
+                class="w-full max-w-md rounded-radius border border-outline bg-surface p-6 shadow-2xl dark:border-outline-dark dark:bg-dub">
                 <h3 class="text-lg font-semibold text-on-surface-strong dark:text-on-surface-dark-strong">
                     Eliminar servicio
                 </h3>

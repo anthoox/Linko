@@ -1,17 +1,17 @@
 <div class="w-full max-w-6xl mx-auto ">
     <!-- Toast Notification -->
-<div x-data="{ show: false, message: '', type: 'success' }" x-on:show-toast.window="
+    <div x-data="{ show: false, message: '', type: 'success' }" x-on:show-toast.window="
         message = $event.detail.message;
         type = $event.detail.type;
         show = true;
         setTimeout(() => show = false, 3500);
     " x-show="show" x-transition x-cloak
-    class="fixed right-4 top-4 z-[999] w-full max-w-sm rounded-radius border px-4 py-3 text-sm shadow-xl backdrop-blur-none"
-    x-bind:class="type === 'success'
+        class="fixed right-4 top-4 z-[999] w-full max-w-sm rounded-radius border px-4 py-3 text-sm shadow-xl backdrop-blur-none"
+        x-bind:class="type === 'success'
         ? 'border-green-500/30 bg-white text-green-700 dark:bg-dub-surface dark:text-green-400'
         : 'border-red-500/30 bg-white text-red-700 dark:bg-dub-surface dark:text-red-400'">
-    <span x-text="message"></span>
-</div>
+        <span x-text="message"></span>
+    </div>
     <!-- Modal añadir categoria -->
     <div x-data="{modalIsOpen: false}" x-on:category-created.window="modalIsOpen = false"
         x-on:open-modal.window="modalIsOpen = true" x-on:keydown.esc.window="modalIsOpen = false">
@@ -28,7 +28,7 @@
             <form wire:submit.prevent="save" x-show="modalIsOpen"
                 x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity"
                 x-transition:enter-start="opacity-0 scale-50" x-transition:enter-end="opacity-100 scale-100"
-                class="flex w-full max-w-lg flex-col gap-4 overflow-hidden rounded-radius border border-outline bg-surface text-on-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark shadow-2xl mx-4 sm:mx-0">
+                class="flex w-full max-w-lg flex-col gap-4 overflow-hidden rounded-radius border border-outline bg-surface text-on-surface dark:border-outline-dark dark:bg-dub dark:text-on-surface-dark shadow-2xl mx-4 sm:mx-0">
                 <!-- Dialog Header -->
                 <div
                     class="flex items-center justify-between border-b border-outline bg-surface-alt/60 p-4 dark:border-outline-dark dark:bg-surface-dark/20">
@@ -59,27 +59,30 @@
                         <label class="w-fit pl-0.5 text-sm text-on-surface dark:text-on-surface-dark" for="icon">
                             Icono de la categoría
                         </label>
-                    <div class="mt-4 mb-3">
-                        <p class="mb-2 text-sm text-on-surface dark:text-on-surface-dark">
-                            Elige un icono
-                        </p>
-                    
-                        <div class="max-h-44 overflow-y-auto rounded-radius bg-gray-100 p-3 dark:bg-dub-surface/90">
-                            <div class="grid grid-cols-6 gap-0 sm:grid-cols-8">
-                                @foreach(config('category-icons') as $key => $item)
-                                                            <button type="button" wire:click="$set('icon_key', '{{ $key }}')" title="{{ $item['label'] }}" class="flex size-9 items-center justify-center rounded-md border border-transparent text-gray-500 transition-all duration-200 hover:border-linko-purple hover:bg-linko-purple/10 hover:text-linko-purple dark:text-gray-300
-                                                                        {{ $icon_key === $key
-                                    ? 'border-linko-purple bg-linko-purple/10 text-linko-purple dark:text-linko-purple'
-                                    : '' }}">
-                                                                <span class="size-5">
-                                                                    {!! $item['svg'] !!}
-                                                                </span>
-                                                            </button>
-                                @endforeach
+                        <div class="mt-4 mb-3">
+                            <p class="mb-2 text-sm text-on-surface dark:text-on-surface-dark">
+                                Elige un icono
+                            </p>
+
+                            <div class="max-h-44 overflow-y-auto rounded-radius bg-gray-100 p-3 dark:bg-gray-800/20">
+                                <div class="grid grid-cols-6 gap-0 sm:grid-cols-8m ">
+                                    @foreach(config('category-icons') as $key => $item)
+                                    <button type="button" wire:click="$set('icon_key', '{{ $key }}')"
+                                            title="{{ $item['label'] }}" class="flex size-9 items-center justify-center rounded-md border border-transparent text-gray-500 transition-all duration-200 hover:border-linko-purple  hover:text-linko-purple dark:text-gray-300
+                                                                            {{ $icon_key === $key
+        ? 'border-linko-purple  text-linko-purple dark:text-linko-purple'
+        : '' }}">
+                                        <span class="size-5">
+                                            {!! $item['svg'] !!}
+                                        </span>
+                                    </button>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
-                    </div>
-
+<p class="mb-2 text-sm text-on-surface dark:text-on-surface-dark">
+    O sube tu propio icono (opcional)
+</p>
                         <input id="icon" type="file" wire:model.live="icon"
                             class="w-full cursor-pointer overflow-clip rounded-radius border border-outline bg-surface-alt/50 text-sm text-on-surface transition-all
         file:mr-6 file:border-none file:bg-linko-purple file:px-4 file:py-2.5 file:text-xs file:tracking-widest file:text-white 
@@ -164,24 +167,24 @@
                         <td class="p-4">
                             <div class="flex w-max items-center gap-2">
                                 @if($category->icon)
-                                    <img class="size-10 rounded-full object-cover" src="{{ asset('storage/' . $category->icon) }}"
-                                        alt="category icon" />
+                                    <img class="size-8 rounded-full object-cover"
+                                        src="{{ asset('storage/' . $category->icon) }}" alt="category icon" />
                                 @elseif($category->icon_key && config('category-icons.' . $category->icon_key))
-                                    <div
-                                        class="size-10 rounded-full object-cover">
+                                    <div class="size-8 rounded-full object-cover">
                                         <span class="size-6">
                                             {!! config('category-icons.' . $category->icon_key . '.svg') !!}
                                         </span>
                                     </div>
                                 @else
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-10 rounded-full object-cover" viewBox="0 0 24 24">
-                                        <path fill="#30363d"
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-8 rounded-full object-cover"
+                                        viewBox="0 0 24 24">
+                                        <path fill="#64748B"
                                             d="M8.75 13A2.25 2.25 0 0 1 11 15.25v3.5A2.25 2.25 0 0 1 8.75 21h-3.5A2.25 2.25 0 0 1 3 18.75v-3.5A2.25 2.25 0 0 1 5.25 13zm10-10A2.25 2.25 0 0 1 21 5.25v3.5A2.25 2.25 0 0 1 18.75 11h-3.5A2.25 2.25 0 0 1 13 8.75v-3.5A2.25 2.25 0 0 1 15.25 3z"
                                             class="duoicon-secondary-layer" opacity=".3" />
-                                        <path fill="#30363d"
+                                        <path fill="#64748B"
                                             d="M8.75 3A2.25 2.25 0 0 1 11 5.25v3.5A2.25 2.25 0 0 1 8.75 11h-3.5A2.25 2.25 0 0 1 3 8.75v-3.5A2.25 2.25 0 0 1 5.25 3z"
                                             class="duoicon-primary-layer" />
-                                        <path fill="#30363d"
+                                        <path fill="#64748B"
                                             d="M18.75 13A2.25 2.25 0 0 1 21 15.25v3.5A2.25 2.25 0 0 1 18.75 21h-3.5A2.25 2.25 0 0 1 13 18.75v-3.5A2.25 2.25 0 0 1 15.25 13z"
                                             class="duoicon-secondary-layer" opacity=".3" />
                                     </svg>
@@ -236,7 +239,7 @@
             class="fixed inset-0 z-40 flex items-center justify-center bg-black/20 p-4 backdrop-blur-md" role="dialog"
             aria-modal="true">
             <div x-show="deleteModalIsOpen" x-transition x-on:click.outside="deleteModalIsOpen = false"
-                class="w-full max-w-md rounded-radius border border-outline bg-surface p-6 shadow-2xl dark:border-outline-dark dark:bg-surface-dark-alt">
+                class="w-full max-w-md rounded-radius border border-outline bg-surface p-6 shadow-2xl dark:border-outline-dark dark:bg-dub">
                 <h3 class="text-lg font-semibold text-on-surface-strong dark:text-on-surface-dark-strong">
                     Eliminar categoría
                 </h3>
