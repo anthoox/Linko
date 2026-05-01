@@ -72,73 +72,80 @@
 
             <!-- RESTO DE APPS -->
             @forelse($categories as $category)
-            <div wire:key="cat-section-{{ $category->id }}" id="{{ Str::slug($category->name) }}" class="scroll-mt-32 flex justify-start h-full w-full flex-1 flex-col gap-4 rounded-xl max-w-6xl">
-                <div class="flex items-center gap-2">
+                <div wire:key="cat-section-{{ $category->id }}" id="{{ Str::slug($category->name) }}" class="scroll-mt-32 flex justify-start h-full w-full flex-1 flex-col gap-4 rounded-xl max-w-6xl">
+                    <div class="flex items-center gap-2">
                     @if($category->icon)
-
-
-                    <img src="{{ $category->icon ? asset('storage/' . $category->icon) : asset('assets/img/app.svg') }}" class="size-7 object-cover rounded-md">
+                        <img src="{{ asset('storage/' . $category->icon) }}" class="size-7 object-cover rounded-md">
+                    @elseif($category->icon_key && config('category-icons.' . $category->icon_key))
+                        <span class="flex size-7 items-center justify-center text-gray-600 dark:text-gray-300">
+                            {!! config('category-icons.' . $category->icon_key . '.svg') !!}
+                        </span>
                     @else
-                    <svg xmlns="http://www.w3.org/2000/svg" class="size-7" viewBox="0 0 24 24">
-                        <path fill="#30363d" d="M8.75 13A2.25 2.25 0 0 1 11 15.25v3.5A2.25 2.25 0 0 1 8.75 21h-3.5A2.25 2.25 0 0 1 3 18.75v-3.5A2.25 2.25 0 0 1 5.25 13zm10-10A2.25 2.25 0 0 1 21 5.25v3.5A2.25 2.25 0 0 1 18.75 11h-3.5A2.25 2.25 0 0 1 13 8.75v-3.5A2.25 2.25 0 0 1 15.25 3z" class="duoicon-secondary-layer" opacity=".3" />
-                        <path fill="#30363d" d="M8.75 3A2.25 2.25 0 0 1 11 5.25v3.5A2.25 2.25 0 0 1 8.75 11h-3.5A2.25 2.25 0 0 1 3 8.75v-3.5A2.25 2.25 0 0 1 5.25 3z" class="duoicon-primary-layer" />
-                        <path fill="#30363d" d="M18.75 13A2.25 2.25 0 0 1 21 15.25v3.5A2.25 2.25 0 0 1 18.75 21h-3.5A2.25 2.25 0 0 1 13 18.75v-3.5A2.25 2.25 0 0 1 15.25 13z" class="duoicon-secondary-layer" opacity=".3" />
-                    </svg>
-
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-7" viewBox="0 0 24 24">
+                            <path fill="#30363d"
+                                d="M8.75 13A2.25 2.25 0 0 1 11 15.25v3.5A2.25 2.25 0 0 1 8.75 21h-3.5A2.25 2.25 0 0 1 3 18.75v-3.5A2.25 2.25 0 0 1 5.25 13zm10-10A2.25 2.25 0 0 1 21 5.25v3.5A2.25 2.25 0 0 1 18.75 11h-3.5A2.25 2.25 0 0 1 13 8.75v-3.5A2.25 2.25 0 0 1 15.25 3z"
+                                class="duoicon-secondary-layer" opacity=".3" />
+                            <path fill="#30363d"
+                                d="M8.75 3A2.25 2.25 0 0 1 11 5.25v3.5A2.25 2.25 0 0 1 8.75 11h-3.5A2.25 2.25 0 0 1 3 8.75v-3.5A2.25 2.25 0 0 1 5.25 3z"
+                                class="duoicon-primary-layer" />
+                            <path fill="#30363d"
+                                d="M18.75 13A2.25 2.25 0 0 1 21 15.25v3.5A2.25 2.25 0 0 1 18.75 21h-3.5A2.25 2.25 0 0 1 13 18.75v-3.5A2.25 2.25 0 0 1 15.25 13z"
+                                class="duoicon-secondary-layer" opacity=".3" />
+                        </svg>
                     @endif
-                    <h3 class="text-md dark:text-gray-300 font-medium text-gray-600" id="categoria-{{ $category->name }}">{{ $category->name }}</h3>
-                </div>
-                <div class="flex gap-2 flex-wrap">
+                        <h3 class="text-md dark:text-gray-300 font-medium text-gray-600" id="categoria-{{ $category->name }}">{{ $category->name }}</h3>
+                    </div>
+                    <div class="flex gap-2 flex-wrap">
 
-                    @forelse($category->apps as $app)
-                    <div wire:key="app-{{ $app->id }}" class="featured__item bg-white border-2 border-gray-300 hover:border-linko-purple 
-            dark:bg-dub-surface dark:border-dub-border dark:hover:border-linko-purple font-medium text-gray-600  
-            transition-colors duration-300 dark:hover:text-linko-purple hover:text-violet-700 cursor-pointer  dark:text-gray-300 ">
-                        <a href="{{ $app->url }}" target="_blank" class="absolute inset-0 z-0"></a>
-                        <div class=" flex items-center gap-2 ">
-                            <div class="featured__icon dark:bg-dub-border ">
-                                <img class="featured__icon-img bg-gray-100  dark:bg-dub-border rounded-md dark:border-dub-border" src="{{ $app->image_path ? asset('storage/' . $app->image_path) : asset('assets/img/app.svg') }}" alt="{{ $app->name }}">
+                        @forelse($category->apps as $app)
+                        <div wire:key="app-{{ $app->id }}" class="featured__item bg-white border-2 border-gray-300 hover:border-linko-purple 
+                dark:bg-dub-surface dark:border-dub-border dark:hover:border-linko-purple font-medium text-gray-600  
+                transition-colors duration-300 dark:hover:text-linko-purple hover:text-violet-700 cursor-pointer  dark:text-gray-300 ">
+                            <a href="{{ $app->url }}" target="_blank" class="absolute inset-0 z-0"></a>
+                            <div class=" flex items-center gap-2 ">
+                                <div class="featured__icon dark:bg-dub-border ">
+                                    <img class="featured__icon-img bg-gray-100  dark:bg-dub-border rounded-md dark:border-dub-border" src="{{ $app->image_path ? asset('storage/' . $app->image_path) : asset('assets/img/app.svg') }}" alt="{{ $app->name }}">
+                                </div>
+
+                                <div class="featured__description ">
+                                    <h3 class="text-sm  transition-colors">{{ $app->name }}</h3>
+
+                                </div>
+                                <div>
+                                    <button
+                                        wire:click.stop="toggleFavorite({{ $app->id }})"
+                                        wire:loading.attr="disabled"
+                                        class="absolute top-0 right-1 z-10 py-1 transition-transform active:scale-95"
+                                        title="Marcar como favorito">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="currentColor"
+                                            class="size-4 transition-colors duration-150 {{ $app->is_favorite ? 'text-linko-purple ' : 'text-gray-300 dark:text-gray-600' }}">
+                                            <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+
+                                           <button
+                                        wire:click.stop="editApp({{ $app->id }})" x-on:click.stop="modalIsOpen = true"
+                                        wire:loading.attr="disabled"
+                                        class="absolute bottom-0 right-1 z-10 py-1 transition-transform active:scale-95"
+                                        title="Editar App">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                            class="size-4 transition-colors duration-150  text-gray-300 dark:text-gray-600 cursor-pointer">
+                                            <path  d="M4.42 20.579a1 1 0 0 1-.737-.326a.988.988 0 0 1-.263-.764l.245-2.694L14.983 5.481l3.537 3.536L7.205 20.33l-2.694.245a.95.95 0 0 1-.091.004ZM19.226 8.31L15.69 4.774l2.121-2.121a1 1 0 0 1 1.415 0l2.121 2.121a1 1 0 0 1 0 1.415l-2.12 2.12l-.001.001Z" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
 
-                            <div class="featured__description ">
-                                <h3 class="text-sm  transition-colors">{{ $app->name }}</h3>
-
-                            </div>
-                            <div>
-                                <button
-                                    wire:click.stop="toggleFavorite({{ $app->id }})"
-                                    wire:loading.attr="disabled"
-                                    class="absolute top-0 right-1 z-10 py-1 transition-transform active:scale-95"
-                                    title="Marcar como favorito">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24"
-                                        fill="currentColor"
-                                        class="size-4 transition-colors duration-150 {{ $app->is_favorite ? 'text-linko-purple ' : 'text-gray-300 dark:text-gray-600' }}">
-                                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                                    </svg>
-                                </button>
-
-                                       <button
-                                    wire:click.stop="editApp({{ $app->id }})" x-on:click.stop="modalIsOpen = true"
-                                    wire:loading.attr="disabled"
-                                    class="absolute bottom-0 right-1 z-10 py-1 transition-transform active:scale-95"
-                                    title="Editar App">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                        class="size-4 transition-colors duration-150  text-gray-300 dark:text-gray-600 cursor-pointer">
-                                        <path  d="M4.42 20.579a1 1 0 0 1-.737-.326a.988.988 0 0 1-.263-.764l.245-2.694L14.983 5.481l3.537 3.536L7.205 20.33l-2.694.245a.95.95 0 0 1-.091.004ZM19.226 8.31L15.69 4.774l2.121-2.121a1 1 0 0 1 1.415 0l2.121 2.121a1 1 0 0 1 0 1.415l-2.12 2.12l-.001.001Z" />
-                                    </svg>
-                                </button>
-                            </div>
                         </div>
-
+                        @empty
+                        <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center  pointer-events-none border-2 bg-white dark:bg-dub-surface dark:border-dub ">
+                            <span class="text-gray-600 ">Categoría vacía</span>
+                        </div>
+                        @endforelse
                     </div>
-                    @empty
-                    <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center  pointer-events-none border-2 bg-white dark:bg-dub-surface dark:border-dub ">
-                        <span class="text-gray-600 ">Categoría vacía</span>
-                    </div>
-                    @endforelse
                 </div>
-            </div>
             @empty
             <div class="flex justify-start gap-2 flex-wrap">
                 <div class="flex justify-start whitespace-nowrap rounded-radius px-4 py-2 text-sm font-medium tracking-wide text-center  pointer-events-none border-2 bg-white dark:bg-dub-surface dark:border-dub ">

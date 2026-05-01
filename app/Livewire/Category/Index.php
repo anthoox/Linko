@@ -21,12 +21,14 @@ class Index extends Component
     public $categoryToDeleteId = null;
     public $categoryToDeleteName = null;
 
+    public $icon_key = 'general';
 
     protected function rules()
     {
         return [
             'name' => 'required|min:3|max:15|unique:categories,name,' . $this->editingCategoryId,
             'icon' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:1024',
+            'icon_key' => 'nullable|string',
         ];
     }
 
@@ -34,8 +36,10 @@ class Index extends Component
     {
         $this->resetFields();
 
+
         $category = Category::where('user_id', Auth::id())->findOrFail($id);
 
+        $this->icon_key = $category->icon_key ?? 'general';
         $this->editingCategoryId = $category->id;
         $this->name = $category->name;
         $this->currentIcon = $category->icon;
@@ -46,6 +50,7 @@ class Index extends Component
     public function resetFields()
     {
         $this->reset(['name', 'icon', 'editingCategoryId', 'currentIcon']);
+        $this->icon_key = 'general';
         $this->resetErrorBag();
         $this->resetPage();
     }
@@ -74,6 +79,7 @@ class Index extends Component
                 $category->update([
                     'name' => $this->name,
                     'icon' => $iconPath,
+                    'icon_key' => $this->icon_key ?: 'general',
                 ]);
             } else {
                 $iconPath = null;
@@ -85,6 +91,7 @@ class Index extends Component
                 Category::create([
                     'name' => $this->name,
                     'icon' => $iconPath,
+                    'icon_key' => $this->icon_key ?: 'general',
                     'user_id' => Auth::id(),
                 ]);
             }

@@ -1,4 +1,5 @@
 <div class="w-full max-w-6xl mx-auto ">
+    <!-- Toast Notification -->
 <div x-data="{ show: false, message: '', type: 'success' }" x-on:show-toast.window="
         message = $event.detail.message;
         type = $event.detail.type;
@@ -11,12 +12,14 @@
         : 'border-red-500/30 bg-white text-red-700 dark:bg-dub-surface dark:text-red-400'">
     <span x-text="message"></span>
 </div>
+    <!-- Modal añadir categoria -->
     <div x-data="{modalIsOpen: false}" x-on:category-created.window="modalIsOpen = false"
         x-on:open-modal.window="modalIsOpen = true" x-on:keydown.esc.window="modalIsOpen = false">
 
         <button x-on:click="modalIsOpen = true" wire:click="resetFields" type="button"
             class="whitespace-nowrap rounded-radius bg-primary border border-primary px-4 py-2 text-center text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0 dark:bg-primary-dark dark:border-primary-dark dark:text-on-primary-dark dark:focus-visible:outline-primary-dark">Nueva
             Categoría</button>
+
         <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen"
             x-on:keydown.esc.window="modalIsOpen = false" x-on:click.self="modalIsOpen = false"
             class="fixed inset-0 z-30 flex w-full items-center justify-center bg-black/20 p-4 pb-8 backdrop-blur-md lg:p-8"
@@ -56,6 +59,26 @@
                         <label class="w-fit pl-0.5 text-sm text-on-surface dark:text-on-surface-dark" for="icon">
                             Icono de la categoría
                         </label>
+                    <div class="mt-4 mb-3">
+                        <p class="mb-2 text-sm text-on-surface dark:text-on-surface-dark">
+                            Elige un icono
+                        </p>
+                    
+                        <div class="max-h-44 overflow-y-auto rounded-radius bg-gray-100 p-3 dark:bg-dub-surface/90">
+                            <div class="grid grid-cols-6 gap-0 sm:grid-cols-8">
+                                @foreach(config('category-icons') as $key => $item)
+                                                            <button type="button" wire:click="$set('icon_key', '{{ $key }}')" title="{{ $item['label'] }}" class="flex size-9 items-center justify-center rounded-md border border-transparent text-gray-500 transition-all duration-200 hover:border-linko-purple hover:bg-linko-purple/10 hover:text-linko-purple dark:text-gray-300
+                                                                        {{ $icon_key === $key
+                                    ? 'border-linko-purple bg-linko-purple/10 text-linko-purple dark:text-linko-purple'
+                                    : '' }}">
+                                                                <span class="size-5">
+                                                                    {!! $item['svg'] !!}
+                                                                </span>
+                                                            </button>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
 
                         <input id="icon" type="file" wire:model.live="icon"
                             class="w-full cursor-pointer overflow-clip rounded-radius border border-outline bg-surface-alt/50 text-sm text-on-surface transition-all
@@ -141,11 +164,17 @@
                         <td class="p-4">
                             <div class="flex w-max items-center gap-2">
                                 @if($category->icon)
-                                    <img class="size-10 rounded-full object-cover"
-                                        src="{{ asset('storage/' . $category->icon) }}" alt="category icon" />
+                                    <img class="size-10 rounded-full object-cover" src="{{ asset('storage/' . $category->icon) }}"
+                                        alt="category icon" />
+                                @elseif($category->icon_key && config('category-icons.' . $category->icon_key))
+                                    <div
+                                        class="size-10 rounded-full object-cover">
+                                        <span class="size-6">
+                                            {!! config('category-icons.' . $category->icon_key . '.svg') !!}
+                                        </span>
+                                    </div>
                                 @else
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-10 rounded-full object-cover"
-                                        viewBox="0 0 24 24">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-10 rounded-full object-cover" viewBox="0 0 24 24">
                                         <path fill="#30363d"
                                             d="M8.75 13A2.25 2.25 0 0 1 11 15.25v3.5A2.25 2.25 0 0 1 8.75 21h-3.5A2.25 2.25 0 0 1 3 18.75v-3.5A2.25 2.25 0 0 1 5.25 13zm10-10A2.25 2.25 0 0 1 21 5.25v3.5A2.25 2.25 0 0 1 18.75 11h-3.5A2.25 2.25 0 0 1 13 8.75v-3.5A2.25 2.25 0 0 1 15.25 3z"
                                             class="duoicon-secondary-layer" opacity=".3" />
@@ -199,6 +228,8 @@
             {{ $categories->links() }}
         </div>
     </div>
+
+    <!-- Modal para confirmar eliminación -->
     <div x-data="{ deleteModalIsOpen: false }" x-on:open-delete-modal.window="deleteModalIsOpen = true"
         x-on:close-delete-modal.window="deleteModalIsOpen = false" x-on:keydown.esc.window="deleteModalIsOpen = false">
         <div x-cloak x-show="deleteModalIsOpen" x-transition.opacity.duration.200ms
