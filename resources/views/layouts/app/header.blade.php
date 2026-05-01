@@ -5,22 +5,16 @@
     @include('partials.head')
 </head>
 
-<body class="min-h-screen bg-white dark:bg-dub">
-    <div id="top"></div>
+<body id="top" class="min-h-screen bg-white dark:bg-dub">
+    <div></div>
 
     @php
-        $headerCategories = auth()->check()
-            ? \App\Models\Category::query()
-                ->where('user_id', auth()->id())
-                ->orderByRaw("
-                            CASE 
-                                WHEN LOWER(name) = 'general' THEN 0
-                                ELSE 1
-                            END
-                        ")
-                ->orderBy('name')
-                ->get(['id', 'name'])
-            : collect();
+$headerCategories = auth()->check()
+    ? \App\Models\Category::query()
+        ->where('user_id', auth()->id())
+        ->orderBy('name')
+        ->get(['id', 'name'])
+    : collect();
     @endphp
 
     <flux:header container x-data="{ scrolled: false }" x-on:scroll.window="scrolled = window.scrollY > 24"

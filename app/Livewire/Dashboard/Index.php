@@ -179,14 +179,14 @@ class Index extends Component
     {
         $categories = Category::where('user_id', Auth::id())
             ->with('apps')
-            ->get()
-            ->sortBy(function ($category) {
-                if ($category->name === 'General') {
-                    return 999999;
-                }
-
-                return -$category->id;
-            });
+            ->orderByRaw("
+            CASE 
+                WHEN LOWER(name) = 'general' THEN 0
+                ELSE 1
+            END
+        ")
+            ->orderBy('name')
+            ->get();
 
         return view('livewire.dashboard.index', [
             'categories' => $categories,
