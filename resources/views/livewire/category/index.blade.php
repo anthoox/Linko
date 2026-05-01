@@ -1,17 +1,19 @@
 <div class="w-full max-w-6xl mx-auto ">
+<div x-data="{ show: false, message: '', type: 'success' }" x-on:show-toast.window="
+        message = $event.detail.message;
+        type = $event.detail.type;
+        show = true;
+        setTimeout(() => show = false, 3500);
+    " x-show="show" x-transition x-cloak
+    class="fixed right-4 top-4 z-[999] w-full max-w-sm rounded-radius border px-4 py-3 text-sm shadow-xl backdrop-blur-none"
+    x-bind:class="type === 'success'
+        ? 'border-green-500/30 bg-white text-green-700 dark:bg-dub-surface dark:text-green-400'
+        : 'border-red-500/30 bg-white text-red-700 dark:bg-dub-surface dark:text-red-400'">
+    <span x-text="message"></span>
+</div>
     <div x-data="{modalIsOpen: false}" x-on:category-created.window="modalIsOpen = false"
         x-on:open-modal.window="modalIsOpen = true" x-on:keydown.esc.window="modalIsOpen = false">
-        @if (session()->has('success'))
-            <div class="mt-4 rounded-radius border border-green-500/30 bg-green-500/10 px-4 py-3 text-sm text-green-600">
-                {{ session('success') }}
-            </div>
-        @endif
 
-        @if (session()->has('error'))
-            <div class="mt-4 rounded-radius border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-600">
-                {{ session('error') }}
-            </div>
-        @endif
         <button x-on:click="modalIsOpen = true" wire:click="resetFields" type="button"
             class="whitespace-nowrap rounded-radius bg-primary border border-primary px-4 py-2 text-center text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0 dark:bg-primary-dark dark:border-primary-dark dark:text-on-primary-dark dark:focus-visible:outline-primary-dark">Nueva
             Categoría</button>
@@ -232,15 +234,5 @@
         </div>
     </div>
 
-    <div x-data="{ show: false, message: '', type: 'success' }" x-on:show-toast.window="
-    message = $event.detail.message;
-    type = $event.detail.type;
-    show = true;
-    setTimeout(() => show = false, 3500);
-" x-show="show" x-transition x-cloak
-        class="fixed right-4 top-4 z-50 w-full max-w-sm rounded-radius border px-4 py-3 text-sm shadow-xl" x-bind:class="type === 'success'
-        ? 'border-green-500/30 bg-green-500/10 text-green-700 dark:text-green-400'
-        : 'border-red-500/30 bg-red-500/10 text-red-700 dark:text-red-400'">
-        <span x-text="message"></span>
-    </div>
+
 </div>

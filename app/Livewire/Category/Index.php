@@ -55,7 +55,8 @@ class Index extends Component
         $this->validate();
 
         try {
-            
+            $wasEditing = $this->editingCategoryId !== null;
+
             $userPath = 'users/' . Auth::id() . '/category-icons';
 
             if ($this->editingCategoryId) {
@@ -66,7 +67,7 @@ class Index extends Component
                     if ($category->icon) {
                         Storage::disk('public')->delete($category->icon);
                     }
-                    
+
                     $iconPath = $this->icon->store($userPath, 'public');
                 }
 
@@ -78,7 +79,6 @@ class Index extends Component
                 $iconPath = null;
 
                 if ($this->icon) {
-
                     $iconPath = $this->icon->store($userPath, 'public');
                 }
 
@@ -90,9 +90,20 @@ class Index extends Component
             }
 
             $this->resetFields();
+
             $this->dispatch('category-created');
+
+            $this->dispatch(
+                'show-toast',
+                type: 'success',
+                message: $wasEditing ? 'Categoría actualizada correctamente.' : 'Categoría creada correctamente.'
+            );
         } catch (\Exception $e) {
-            session()->flash('error', 'Ocurrió un error al guardar: ' . $e->getMessage());
+            $this->dispatch(
+                'show-toast',
+                type: 'error',
+                message: 'Ocurrió un error al guardar: ' . $e->getMessage()
+            );
         }
     }
 
@@ -102,24 +113,24 @@ class Index extends Component
             return;
         }
 
-        $category = Category::where('user_id', Auth::id())
-            ->findOrFail($this->categoryToDeleteId);
-
         try {
+            $category = Category::where('user_id', Auth::id())
+                ->findOrFail($this->categoryToDeleteId);
+
             if (strtolower($category->name) === 'general') {
                 $tieneServicios = AppService::where('user_id', Auth::id())
                     ->where('category_id', $category->id)
                     ->exists();
 
                 if ($tieneServicios) {
+                    $this->resetDeleteFields();
+                    $this->dispatch('close-delete-modal');
+
                     $this->dispatch(
                         'show-toast',
                         type: 'error',
                         message: 'No puedes eliminar la categoría General porque contiene servicios.'
                     );
-
-                    $this->resetDeleteFields();
-                    $this->dispatch('close-delete-modal');
 
                     return;
                 }
