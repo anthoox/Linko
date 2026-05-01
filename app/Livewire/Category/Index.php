@@ -188,7 +188,7 @@ class Index extends Component
     public function render()
     {
         return view('livewire.category.index', [
-            'categories' => Category::where('user_id', Auth::id())->latest()->simplePaginate(5)
+            'categories' => Category::where('user_id', Auth::id())->latest()->simplePaginate(10)
         ]);
     }
 
