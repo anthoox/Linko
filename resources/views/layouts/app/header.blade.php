@@ -22,8 +22,8 @@ $headerCategories = auth()->check()
             ? 'sticky top-0 z-20 border-zinc-200/80 bg-white/92 shadow-sm backdrop-blur dark:border-zinc-700/80 dark:bg-dub/92'
             : 'sticky top-0 z-20 border-zinc-200 bg-white dark:border-zinc-700 dark:bg-dub'"
         class="transition-all duration-300 sticky will-change-transform">
-        <div x-bind:class="scrolled ? 'translate-y-0 py-4' : 'py-4' dark:bg-dub"
-            class="w-full max-w-6xl mx-auto flex flex-col gap-4 transition-all duration-300 py-4">
+        <div x-bind:class="scrolled ? 'translate-y-0 py-4' : 'py-4'"
+class="w-full max-w-6xl mx-auto flex flex-col gap-4 transition-all duration-300 py-4 dark:bg-dub">
             <div class="flex content-center items-center">
                 <flux:sidebar.toggle class="lg:hidden mr-2" icon="bars-2" inset="left" />
 

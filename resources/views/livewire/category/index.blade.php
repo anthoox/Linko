@@ -67,15 +67,15 @@
                             <div class="max-h-44 overflow-y-auto rounded-radius bg-gray-100 p-3 dark:bg-gray-800/20">
                                 <div class="grid grid-cols-6 gap-0 sm:grid-cols-8m ">
                                     @foreach(config('category-icons') as $key => $item)
-                                    <button type="button" wire:click="$set('icon_key', '{{ $key }}')"
-                                            title="{{ $item['label'] }}" class="flex size-9 items-center justify-center rounded-md border border-transparent text-gray-500 transition-all duration-200 hover:border-linko-purple  hover:text-linko-purple dark:text-gray-300
-                                                                            {{ $icon_key === $key
-        ? 'border-linko-purple  text-linko-purple dark:text-linko-purple'
-        : '' }}">
-                                        <span class="size-5">
-                                            {!! $item['svg'] !!}
-                                        </span>
-                                    </button>
+                                                                        <button type="button" wire:click="$set('icon_key', '{{ $key }}')"
+                                                                                title="{{ $item['label'] }}" class="flex size-9 items-center justify-center rounded-md border transition-all duration-200
+                                        {{ $icon_key === $key
+                                            ? 'border-linko-purple bg-linko-purple/10 text-linko-purple scale-105'
+                                            : 'border-transparent text-gray-500 hover:border-linko-purple hover:text-linko-purple dark:text-gray-300' }}">
+                                                                            <span class="size-5">
+                                                                                {!! $item['svg'] !!}
+                                                                            </span>
+                                                                        </button>
                                     @endforeach
                                 </div>
                             </div>
