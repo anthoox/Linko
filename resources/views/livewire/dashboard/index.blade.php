@@ -5,9 +5,10 @@
             show = true;
             setTimeout(() => show = false, 3500);
         " x-show="show" x-transition x-cloak
-        class="fixed right-4 top-4 z-[999] w-full max-w-sm rounded-radius border px-4 py-3 text-sm shadow-xl" x-bind:class="type === 'success'
-            ? 'border-green-500/30 bg-green-500/10 text-green-700 dark:text-green-400'
-            : 'border-red-500/30 bg-red-500/10 text-red-700 dark:text-red-400'">
+        class="fixed right-4 top-4 z-[9999] w-full max-w-sm rounded-radius border px-4 py-3 text-sm shadow-xl backdrop-blur-none"
+        x-bind:class="type === 'success'
+            ? 'border-green-500/30 bg-white text-green-700 dark:bg-dub-surface dark:text-green-400'
+            : 'border-red-500/30 bg-white text-red-700 dark:bg-dub-surface dark:text-red-400'">
         <span x-text="message"></span>
     </div>
 
@@ -225,7 +226,7 @@
 
                                 <div class="flex flex-col-reverse justify-between gap-2 border-t border-outline bg-surface-alt/60 p-4 dark:border-outline-dark dark:bg-surface-dark/20 sm:flex-row sm:items-center md:justify-end">
                                     @if($editingAppId)
-                                        <button type="button" wire:click="confirmDeleteApp"
+                                        <button type="button" x-on:click="modalIsOpen = false" wire:click="confirmDeleteApp"
                                             class="whitespace-nowrap rounded-radius bg-red-500/10 px-4 py-2 text-center text-sm font-medium text-red-600 transition hover:bg-red-500 hover:text-white">
                                             Eliminar
                                         </button>
@@ -249,7 +250,7 @@
         x-on:close-delete-app-modal.window="deleteAppModalIsOpen = false"
         x-on:keydown.esc.window="deleteAppModalIsOpen = false">
         <div x-cloak x-show="deleteAppModalIsOpen" x-transition.opacity.duration.200ms
-            class="fixed inset-0 z-[998] flex items-center justify-center bg-black/20 p-4 backdrop-blur-md" role="dialog"
+            class="fixed inset-0 z-[9998] flex items-center justify-center bg-black/20 p-4 backdrop-blur-md" role="dialog"
             aria-modal="true">
             <div x-show="deleteAppModalIsOpen" x-transition x-on:click.outside="deleteAppModalIsOpen = false"
                 class="w-full max-w-md rounded-radius border border-outline bg-surface p-6 shadow-2xl dark:border-outline-dark dark:bg-surface-dark-alt">

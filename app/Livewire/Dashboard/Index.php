@@ -50,6 +50,8 @@ class Index extends Component
         $this->validate();
 
         try {
+            $wasEditing = $this->editingAppId !== null;
+
             $userPath = 'users/' . Auth::id() . '/apps';
 
             if (empty($this->category_id)) {
@@ -94,8 +96,6 @@ class Index extends Component
                     'is_favorite' => false,
                 ]);
             }
-
-            $wasEditing = $this->editingAppId !== null;
 
             $this->resetFields();
 
